@@ -1,8 +1,9 @@
 package com.gaan.liver.data.repository;
 
-import com.gaan.liver.data.model.api.FacebookLoginRequest;
-import com.gaan.liver.data.model.api.GoogleLoginRequest;
-import com.gaan.liver.data.model.api.LoginRequest;
+import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
+import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
+import com.gaan.liver.data.model.api.request.ServerLoginRequest;
+import com.gaan.liver.data.model.api.response.LoginResponse;
 import com.gaan.liver.data.remote.IAuthApi;
 
 import javax.inject.Inject;
@@ -18,16 +19,16 @@ public class AuthRepo {
         this.authApi = authApi;
     }
 
-    public Single<String> postFacebookApiCall(FacebookLoginRequest facebookLoginRequest){
+    public Single<LoginResponse> postFacebookApiCall(FacebookLoginRequest facebookLoginRequest){
         return authApi.postFacebookApiCall(facebookLoginRequest);
     }
 
-    public Single<String> postGoogleApiCall(GoogleLoginRequest googleLoginRequest){
+    public Single<LoginResponse> postGoogleApiCall(GoogleLoginRequest googleLoginRequest){
         return authApi.postGoogleApiCall(googleLoginRequest);
     }
 
-    public Single<String> postLoginApiCall(LoginRequest loginRequest){
-        return authApi.postLoginApiCall(loginRequest);
+    public Single<LoginResponse> postLoginApiCall(ServerLoginRequest serverLoginRequest){
+        return authApi.postLoginApiCall(serverLoginRequest);
     }
 
 }

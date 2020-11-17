@@ -1,9 +1,9 @@
-package com.gaan.liver.data.model.api;
+package com.gaan.liver.data.model.api.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginRequest {
+public class ServerLoginRequest {
     @Expose
     @SerializedName("email")
     private String email;
@@ -12,7 +12,7 @@ public class LoginRequest {
     @SerializedName("password")
     private String password;
 
-    public LoginRequest(String email, String password) {
+    public ServerLoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -26,7 +26,7 @@ public class LoginRequest {
             return false;
         }
 
-        LoginRequest that = (LoginRequest) object;
+        ServerLoginRequest that = (ServerLoginRequest) object;
 
         if (email != null ? !email.equals(that.email) : that.email != null) {
             return false;

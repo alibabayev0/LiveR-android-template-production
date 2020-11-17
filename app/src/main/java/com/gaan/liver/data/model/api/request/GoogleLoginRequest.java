@@ -1,4 +1,4 @@
-package com.gaan.liver.data.model.api;
+package com.gaan.liver.data.model.api.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
