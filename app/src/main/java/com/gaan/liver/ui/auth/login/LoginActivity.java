@@ -15,9 +15,12 @@ import com.gaan.liver.di.component.ActivityComponent;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding,LoginViewModel> implements ILoginNavigator {
 
+    ActivityLoginBinding mLoginBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLoginBinding = getViewDataBinding();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.gaan.liver.ui.base;
+ package com.gaan.liver.ui.base;
 
 
 import android.content.Context;
@@ -14,28 +14,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.gaan.liver.App;
+import com.gaan.liver.MvvmApp;
 import com.gaan.liver.di.component.ActivityComponent;
+import com.gaan.liver.di.component.AppComponent;
 import com.gaan.liver.di.component.DaggerActivityComponent;
 import com.gaan.liver.di.module.ActivityModule;
+import com.gaan.liver.ui.auth.login.LoginActivity;
+import com.gaan.liver.util.network.NetworkUtils;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import javax.inject.Inject;
+
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewModel> extends AppCompatActivity {
 
     private T mViewDataBinding;
 
+    @Inject
     protected V mViewModel;
-
-//
-//    protected Class<V> mViewModelClass;
-//
-//    public void BaseActivity(Class<V> mViewModelClass){
-//        this.mViewModelClass = mViewModelClass;
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        performDependencyInjection(getBuildComponent());
         super.onCreate(savedInstanceState);
         performDataBinding();
     }
@@ -50,12 +50,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
      *
      * @return variable id
      */
-        public abstract int getBindingVariable();
+    public abstract int getBindingVariable();
 
 
     /**
      *
-     * DataBinding setter
+     * DataBinding getter
      */
     public T getViewDataBinding() {
         return mViewDataBinding;
@@ -63,12 +63,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
+
+    /**
+     * getBuildComponent building appComponent and activitymodule
+     * @return ActivityComponent
+     */
     private ActivityComponent getBuildComponent() {
         return DaggerActivityComponent.builder()
-                .appComponent(((App)getApplication()).appComponent)
+                .appComponent(((MvvmApp) getApplication()).appComponent)
                 .activityModule(new ActivityModule(this))
                 .build();
     }
@@ -77,7 +82,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
 
     /**
      *
-     * Hiding Keyboard in every view
+     * Hiding Keyboard manually
      */
     public void hideKeyboard() {
         View view = this.getCurrentFocus();
@@ -95,7 +100,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
      * @param bundle
      * Function for starting clz activity with bundle
      */
-
     public void startActivity(Class<?> clz, Bundle bundle) {
         Intent intent = new Intent(this, clz);
         if (bundle != null) {
@@ -104,25 +108,30 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
         startActivity(intent);
     }
 
+    /**
+     * If server respons that user token is expired automatically returning to loginactivity
+     */
     public void openActivityOnTokenExpire() {
-//        startActivity(LoginActivity.newIntent(this));
+        startActivity(LoginActivity.newIntent(this));
         finish();
     }
 
 
-//    /**
-//     * Network Status checker by Utils
-//     * @return
-//     */
-//    public boolean isNetworkConnected() {
-//        return NetworkUtils.isNetworkConnected(getApplicationContext());
-//    }
+    /**
+     * Network Status checker by Utils
+     * @return
+     */
+    public boolean hasNetwork() {
+        return NetworkUtils.hasNetwork(getApplicationContext());
+    }
 
 
+    /**
+     * Setting views and variables of databinding
+     */
     private void performDataBinding() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
-        mViewDataBinding.setLifecycleOwner(this);
         mViewDataBinding.executePendingBindings();
     }
 }

@@ -2,7 +2,7 @@ package com.gaan.liver.di.component;
 
 import android.app.Application;
 
-import com.gaan.liver.App;
+import com.gaan.liver.MvvmApp;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.di.module.AppModule;
 import com.gaan.liver.di.module.NetworkModule;
@@ -14,10 +14,10 @@ import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {NetworkModule.class,AppModule.class})
+@Component(modules = {AppModule.class,NetworkModule.class})
 public interface AppComponent {
 
-    void inject(App app);
+    void inject(MvvmApp mvvmApp);
 
     IUserDataManager getUserDataManager();
 

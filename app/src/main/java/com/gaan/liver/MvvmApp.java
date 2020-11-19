@@ -1,17 +1,21 @@
 package com.gaan.liver;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.gaan.liver.di.component.AppComponent;
 import com.gaan.liver.di.component.DaggerAppComponent;
-import com.gaan.liver.util.Logger;
+import com.gaan.liver.util.logger.Logger;
 import com.orhanobut.hawk.Hawk;
 
 import javax.inject.Inject;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 
-public class App extends Application {
+
+public class MvvmApp extends Application {
 
     public AppComponent appComponent;
 
@@ -32,6 +36,10 @@ public class App extends Application {
 
         Logger.init();
 
-        CalligraphyConfig.initDefault(mCalligraphyConfig);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .build()))
+                .build());
     }
 }

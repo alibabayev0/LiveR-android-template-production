@@ -15,6 +15,7 @@ import com.gaan.liver.ui.discover.DiscoverViewModel;
 import com.gaan.liver.ui.messenger.MessengerViewModel;
 import com.gaan.liver.ui.profile.ProfileViewModel;
 import com.gaan.liver.ui.settings.SettingsViewModel;
+import com.gaan.liver.util.logger.Logger;
 import com.gaan.liver.util.rx.SchedulerProvider;
 
 import dagger.Module;
@@ -30,6 +31,7 @@ public class ActivityModule {
 
     @Provides
     SplashViewModel provideSplashViewModel(IUserDataManager userDataManager, SchedulerProvider schedulerProvider) {
+        Logger.d("ActivityModule:","Provided");
         Supplier<SplashViewModel> supplier = () -> new SplashViewModel(userDataManager,schedulerProvider);
         ViewModelProviderFactory<SplashViewModel> factory = new ViewModelProviderFactory<>(SplashViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(SplashViewModel.class);

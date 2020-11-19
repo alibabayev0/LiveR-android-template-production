@@ -1,4 +1,4 @@
-package com.gaan.liver.util;
+package com.gaan.liver.util.logger;
 
 import com.gaan.liver.BuildConfig;
 

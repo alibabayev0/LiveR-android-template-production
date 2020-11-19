@@ -20,9 +20,8 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     AuthRepo mAuthRepo;
 
     @Inject
-    public LoginViewModel(AuthRepo authRepo,IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
+    public LoginViewModel(IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
-        mAuthRepo = authRepo;
     }
 
     public void login(){

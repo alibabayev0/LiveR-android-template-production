@@ -3,6 +3,7 @@ package com.gaan.liver.di.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.gaan.liver.R;
 import com.gaan.liver.data.local.AppPreferencesHelper;
 import com.gaan.liver.data.local.IAppPreferencesHelper;
 import com.gaan.liver.data.manager.IUserDataManager;
@@ -14,7 +15,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
 
 @Module
 public class AppModule {
@@ -28,8 +29,6 @@ public class AppModule {
     @Singleton
     CalligraphyConfig provideCalligraphyDefaultConfig() {
         return new CalligraphyConfig.Builder()
-//                .setDefaultFontPath("fonts/source-sans-pro/SourceSansPro-Regular.ttf")
-//                .setFontAttrId(R.attr.fontPath)
                 .build();
     }
 
