@@ -3,14 +3,18 @@ package com.gaan.liver.data.repository;
 import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
 import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerLoginRequest;
+import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
 import com.gaan.liver.data.model.api.response.LoginResponse;
+import com.gaan.liver.data.model.api.response.RegisterResponse;
 import com.gaan.liver.data.remote.IAuthApi;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Single;
 
-public class AuthRepo {
+@Singleton
+public class AuthRepo implements IAuthRepo {
 
     private IAuthApi authApi;
 
@@ -29,6 +33,10 @@ public class AuthRepo {
 
     public Single<LoginResponse> postLoginApiCall(ServerLoginRequest serverLoginRequest){
         return authApi.postLoginApiCall(serverLoginRequest);
+    }
+
+    public Single<RegisterResponse> postRegisterCall(ServerRegisterRequest serverRegisterRequest){
+        return authApi.postRegisterCall(serverRegisterRequest);
     }
 
 }

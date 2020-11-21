@@ -7,11 +7,14 @@ import android.os.Bundle;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.gaan.liver.R;
+import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivityDiscoverBinding;
 import com.gaan.liver.di.component.ActivityComponent;
+import com.gaan.liver.ui.messenger.MessengerActivity;
+import com.gaan.liver.ui.profile.ProfileActivity;
 
-public class DiscoverActivity extends BaseActivity<ActivityDiscoverBinding,DiscoverViewModel> {
+public class DiscoverActivity extends BaseActivity<ActivityDiscoverBinding,DiscoverViewModel> implements IDiscoverNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +39,23 @@ public class DiscoverActivity extends BaseActivity<ActivityDiscoverBinding,Disco
 
     public static Intent newIntent(Context context) {
         return new Intent(context, DiscoverActivity.class);
+    }
+
+    @Override
+    public void openArActivity() {
+        Intent intent = ArActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openMessengerActivity() {
+        Intent intent = MessengerActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openProfileActivity() {
+        Intent intent = ProfileActivity.newIntent(this);
+        startActivity(intent);
     }
 }

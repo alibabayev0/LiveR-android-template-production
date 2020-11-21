@@ -8,6 +8,7 @@ import com.gaan.liver.ui.auth.forgotpassword.ForgotPasswordActivity;
 import com.gaan.liver.ui.auth.login.LoginActivity;
 import com.gaan.liver.ui.auth.register.RegisterActivity;
 import com.gaan.liver.ui.auth.splash.SplashActivity;
+import com.gaan.liver.ui.auth.splash.SplashViewModel;
 import com.gaan.liver.ui.discover.DiscoverActivity;
 import com.gaan.liver.ui.messenger.MessengerActivity;
 import com.gaan.liver.ui.profile.ProfileActivity;
@@ -36,4 +37,6 @@ public interface ActivityComponent {
     void inject(ProfileActivity profileActivity);
 
     void inject(SettingsActivity settingsActivity);
+
+    void inject(SplashViewModel splashViewModel);
 }

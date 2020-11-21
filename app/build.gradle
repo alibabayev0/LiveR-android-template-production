@@ -36,7 +36,7 @@ def supportVersion = '29.0.0'
 def retrofitVersion = '2.3.0'
 def glideVersion = '4.9.0'
 def rxJavaVersion = '2.1.1'
-def daggerVersion = '2.14.1'
+def daggerVersion = '2.16'
 def mockitoVersion = '2.11.0'
 
 
@@ -61,12 +61,11 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
-    def daggerVer = 2.24 // or latest version
-    api "com.google.dagger:dagger:$daggerVer"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
-    api "com.google.dagger:dagger-android:$daggerVer"
-    api "com.google.dagger:dagger-android-support:$daggerVer" // if you use the support libraries
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+    api "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    api "com.google.dagger:dagger-android:$daggerVersion"
+    api "com.google.dagger:dagger-android-support:$daggerVersion" // if you use the support libraries
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -88,4 +87,5 @@ dependencies {
 
     //Logger
     api 'com.jakewharton.timber:timber:4.7.1'
+
 }

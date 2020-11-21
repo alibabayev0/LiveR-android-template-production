@@ -16,7 +16,6 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

@@ -6,17 +6,22 @@ import android.os.Bundle;
 
 import com.gaan.liver.BR;
 import com.gaan.liver.R;
+import com.gaan.liver.ui.auth.splash.SplashActivity;
 import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivityArBinding;
 import com.gaan.liver.di.component.ActivityComponent;
+import com.gaan.liver.ui.discover.DiscoverActivity;
+import com.gaan.liver.ui.messenger.MessengerActivity;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class ArActivity extends BaseActivity<ActivityArBinding,ArViewModel> {
+import javax.inject.Inject;
 
+public class ArActivity extends BaseActivity<ActivityArBinding,ArViewModel> implements ArNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ar);
+        mViewModel.setNavigator(ArActivity.this);
     }
 
     @Override
@@ -38,4 +43,15 @@ public class ArActivity extends BaseActivity<ActivityArBinding,ArViewModel> {
         buildComponent.inject(this);
     }
 
+    @Override
+    public void openDiscover() {
+        Intent intent = DiscoverActivity.newIntent(this);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openMessenger() {
+        Intent intent = MessengerActivity.newIntent(this);
+        startActivity(intent);
+    }
 }

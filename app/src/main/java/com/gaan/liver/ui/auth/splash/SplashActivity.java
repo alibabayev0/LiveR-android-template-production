@@ -20,7 +20,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashVie
         mViewModel.startCheckStatusUser();
     }
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash;

@@ -1,4 +1,4 @@
-package com.gaan.liver.data.remote;
+package com.gaan.liver.data.constant;
 
 public class ApiConstants {
     public static final String BASE_URL = "http://api.example.com/";

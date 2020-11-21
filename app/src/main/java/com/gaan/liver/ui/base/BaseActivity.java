@@ -1,6 +1,7 @@
  package com.gaan.liver.ui.base;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 
@@ -21,6 +22,7 @@ import com.gaan.liver.di.component.DaggerActivityComponent;
 import com.gaan.liver.di.module.ActivityModule;
 import com.gaan.liver.ui.auth.login.LoginActivity;
 import com.gaan.liver.util.network.NetworkUtils;
+import com.gaan.liver.util.ui.ViewUIUtil;
 
 import javax.inject.Inject;
 
@@ -32,6 +34,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
 
     @Inject
     protected V mViewModel;
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +129,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
         return NetworkUtils.hasNetwork(getApplicationContext());
     }
 
+
+    public void showLoading() {
+        hideLoading();
+        mProgressDialog = ViewUIUtil.showLoadingDialog(this);
+    }
+
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
 
     /**
      * Setting views and variables of databinding

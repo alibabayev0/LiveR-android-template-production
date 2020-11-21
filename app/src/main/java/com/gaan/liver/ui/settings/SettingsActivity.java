@@ -11,7 +11,7 @@ import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivitySettingsBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 
-public class SettingsActivity extends BaseActivity<ActivitySettingsBinding,SettingsViewModel> {
+public class SettingsActivity extends BaseActivity<ActivitySettingsBinding,SettingsViewModel> implements ISettingsNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

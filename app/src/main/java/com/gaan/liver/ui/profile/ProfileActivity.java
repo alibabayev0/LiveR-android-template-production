@@ -10,8 +10,9 @@ import com.gaan.liver.R;
 import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivityProfileBinding;
 import com.gaan.liver.di.component.ActivityComponent;
+import com.gaan.liver.ui.settings.SettingsActivity;
 
-public class ProfileActivity extends BaseActivity<ActivityProfileBinding,ProfileViewModel> {
+public class ProfileActivity extends BaseActivity<ActivityProfileBinding,ProfileViewModel> implements IProfileNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +36,11 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding,Profile
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ProfileActivity.class);
+    }
+
+    @Override
+    public void openSettingsActivity() {
+        Intent intent = ProfileActivity.newIntent(this);
+        startActivity(intent);
     }
 }

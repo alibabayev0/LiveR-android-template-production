@@ -1,9 +1,14 @@
 package com.gaan.liver.di.module;
 
+import android.hardware.SensorManager;
+
 import androidx.core.util.Supplier;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.gaan.liver.ViewModelProviderFactory;
+import com.gaan.liver.data.remote.IAuthApi;
+import com.gaan.liver.data.remote.RetrofitManager;
+import com.gaan.liver.data.repository.AuthRepo;
 import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.ui.ar.ArViewModel;
@@ -17,9 +22,11 @@ import com.gaan.liver.ui.profile.ProfileViewModel;
 import com.gaan.liver.ui.settings.SettingsViewModel;
 import com.gaan.liver.util.logger.Logger;
 import com.gaan.liver.util.rx.SchedulerProvider;
+import com.gaan.liver.util.sensors.GlobalSensor;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 
 @Module
 public class ActivityModule {
@@ -31,7 +38,6 @@ public class ActivityModule {
 
     @Provides
     SplashViewModel provideSplashViewModel(IUserDataManager userDataManager, SchedulerProvider schedulerProvider) {
-        Logger.d("ActivityModule:","Provided");
         Supplier<SplashViewModel> supplier = () -> new SplashViewModel(userDataManager,schedulerProvider);
         ViewModelProviderFactory<SplashViewModel> factory = new ViewModelProviderFactory<>(SplashViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(SplashViewModel.class);
@@ -39,13 +45,15 @@ public class ActivityModule {
 
     @Provides
     LoginViewModel provideLoginViewModel(IUserDataManager userDataManager,SchedulerProvider schedulerProvider) {
-        Supplier<LoginViewModel> supplier = () -> new LoginViewModel(userDataManager,schedulerProvider);
+        AuthRepo authRepo = new AuthRepo(RetrofitManager.provideAuthApi());
+        Supplier<LoginViewModel> supplier = () -> new LoginViewModel(authRepo,userDataManager,schedulerProvider);
         ViewModelProviderFactory<LoginViewModel> factory = new ViewModelProviderFactory<>(LoginViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(LoginViewModel.class);
     }
 
     @Provides
     ForgotPasswordViewModel provideForgotPasswordViewModel(IUserDataManager userDataManager,SchedulerProvider schedulerProvider) {
+        AuthRepo authRepo = new AuthRepo(RetrofitManager.provideAuthApi());
         Supplier<ForgotPasswordViewModel> supplier = () -> new ForgotPasswordViewModel(userDataManager,schedulerProvider);
         ViewModelProviderFactory<ForgotPasswordViewModel> factory = new ViewModelProviderFactory<>(ForgotPasswordViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(ForgotPasswordViewModel.class);
@@ -53,7 +61,8 @@ public class ActivityModule {
 
     @Provides
     RegisterViewModel provideRegisterViewModel(IUserDataManager userDataManager,SchedulerProvider schedulerProvider) {
-        Supplier<RegisterViewModel> supplier = () -> new RegisterViewModel(userDataManager,schedulerProvider);
+        AuthRepo authRepo = new AuthRepo(RetrofitManager.provideAuthApi());
+        Supplier<RegisterViewModel> supplier = () -> new RegisterViewModel(authRepo,userDataManager,schedulerProvider);
         ViewModelProviderFactory<RegisterViewModel> factory = new ViewModelProviderFactory<>(RegisterViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(RegisterViewModel.class);
     }

@@ -6,9 +6,14 @@ import android.view.View;
 import androidx.databinding.BindingConversion;
 import androidx.databinding.ObservableBoolean;
 
+import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.repository.AuthRepo;
+import com.gaan.liver.data.repository.IAuthRepo;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.rx.SchedulerProvider;
+
+import javax.inject.Inject;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
@@ -19,7 +24,11 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     }
 
     public void startCheckStatusUser(){
-
+        if (getUserDataManager().getUserLoggedStatus() == LoggedStatus.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
+            getNavigator().openLoginActivity();
+        } else {
+            getNavigator().openArActivity();
+        }
     }
 
     public int booleanToVisibility(Boolean value){
