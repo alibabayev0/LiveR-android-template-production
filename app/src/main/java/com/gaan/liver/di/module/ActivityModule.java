@@ -30,9 +30,9 @@ import retrofit2.Retrofit;
 
 @Module
 public class ActivityModule {
-    private BaseActivity<?, ?> activity;
+    private BaseActivity activity;
 
-    public ActivityModule(BaseActivity<?, ?> activity) {
+    public ActivityModule(BaseActivity activity) {
         this.activity = activity;
     }
 

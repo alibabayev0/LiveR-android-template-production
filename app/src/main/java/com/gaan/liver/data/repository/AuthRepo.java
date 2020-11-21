@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 
 @Singleton
-public class AuthRepo implements IAuthRepo {
+public class AuthRepo {
 
     private IAuthApi authApi;
 

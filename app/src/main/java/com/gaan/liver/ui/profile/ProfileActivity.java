@@ -12,7 +12,7 @@ import com.gaan.liver.databinding.ActivityProfileBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.settings.SettingsActivity;
 
-public class ProfileActivity extends BaseActivity<ActivityProfileBinding,ProfileViewModel> implements IProfileNavigator {
+public class ProfileActivity extends BaseActivity implements IProfileNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,6 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding,Profile
     @Override
     public int getLayoutId() {
         return R.layout.activity_profile;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

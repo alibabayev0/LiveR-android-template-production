@@ -13,7 +13,7 @@ import com.gaan.liver.databinding.ActivityRegisterBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.util.logger.Logger;
 
-public class RegisterActivity extends BaseActivity<ActivityRegisterBinding,RegisterViewModel> implements IRegisterNavigator{
+public class RegisterActivity extends BaseActivity implements IRegisterNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,6 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding,Regis
     @Override
     public int getLayoutId() {
         return R.layout.activity_register;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

@@ -8,7 +8,6 @@ import androidx.databinding.ObservableBoolean;
 
 import com.gaan.liver.data.model.LoggedStatus;
 import com.gaan.liver.data.repository.AuthRepo;
-import com.gaan.liver.data.repository.IAuthRepo;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.rx.SchedulerProvider;
@@ -19,6 +18,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public ObservableBoolean observableBoolean = new ObservableBoolean();
 
+    @Inject
     public SplashViewModel(IUserDataManager iUserDataManager,SchedulerProvider schedulerProvider) {
         super(iUserDataManager,schedulerProvider);
     }

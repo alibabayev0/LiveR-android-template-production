@@ -11,9 +11,5 @@ import dagger.Provides;
 @Module
 public class RepositoryModule {
 
-    @Singleton
-    @Provides
-    AuthRepo provideAuthRepo(IAuthApi authApi){
-        return new AuthRepo(authApi);
-    }
+
 }

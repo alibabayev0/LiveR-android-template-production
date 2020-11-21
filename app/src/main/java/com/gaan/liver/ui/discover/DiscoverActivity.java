@@ -14,7 +14,7 @@ import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.messenger.MessengerActivity;
 import com.gaan.liver.ui.profile.ProfileActivity;
 
-public class DiscoverActivity extends BaseActivity<ActivityDiscoverBinding,DiscoverViewModel> implements IDiscoverNavigator{
+public class DiscoverActivity extends BaseActivity implements IDiscoverNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +25,6 @@ public class DiscoverActivity extends BaseActivity<ActivityDiscoverBinding,Disco
     @Override
     public int getLayoutId() {
         return R.layout.activity_discover;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

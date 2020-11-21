@@ -16,7 +16,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import javax.inject.Inject;
 
-public class ArActivity extends BaseActivity<ActivityArBinding,ArViewModel> implements ArNavigator {
+public class ArActivity extends BaseActivity implements ArNavigator {
+
+    @Inject
+    ArViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +30,6 @@ public class ArActivity extends BaseActivity<ActivityArBinding,ArViewModel> impl
     @Override
     public int getLayoutId() {
         return R.layout.activity_ar;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     public static Intent newIntent(Context context) {

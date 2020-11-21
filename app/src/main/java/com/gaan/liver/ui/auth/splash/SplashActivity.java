@@ -11,7 +11,12 @@ import com.gaan.liver.databinding.ActivitySplashBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.ar.ArActivity;
 
-public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashViewModel> implements SplashNavigator {
+import javax.inject.Inject;
+
+public class SplashActivity extends BaseActivity implements SplashNavigator {
+
+    @Inject
+    SplashViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +28,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding,SplashVie
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
 

@@ -13,7 +13,7 @@ import com.gaan.liver.databinding.ActivityMessengerBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.discover.DiscoverActivity;
 
-public class MessengerActivity extends BaseActivity<ActivityMessengerBinding,MessengerViewModel> implements IMessengerNavigator {
+public class MessengerActivity extends BaseActivity implements IMessengerNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,6 @@ public class MessengerActivity extends BaseActivity<ActivityMessengerBinding,Mes
     @Override
     public int getLayoutId() {
         return R.layout.activity_messenger;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

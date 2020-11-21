@@ -11,7 +11,7 @@ import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivityForgotPasswordBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 
-public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordBinding,ForgotPasswordViewModel> {
+public class ForgotPasswordActivity extends BaseActivity implements IForgotPasswordNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +21,6 @@ public class ForgotPasswordActivity extends BaseActivity<ActivityForgotPasswordB
     @Override
     public int getLayoutId() {
         return R.layout.activity_forgot_password;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivitySettingsBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 
-public class SettingsActivity extends BaseActivity<ActivitySettingsBinding,SettingsViewModel> implements ISettingsNavigator {
+public class SettingsActivity extends BaseActivity implements ISettingsNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +21,6 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding,Setti
     @Override
     public int getLayoutId() {
         return R.layout.activity_settings;
-    }
-
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
     }
 
     @Override

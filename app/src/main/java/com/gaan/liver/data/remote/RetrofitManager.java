@@ -1,7 +1,5 @@
 package com.gaan.liver.data.remote;
 
-import com.gaan.liver.data.repository.IAuthRepo;
-
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

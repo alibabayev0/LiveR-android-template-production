@@ -28,12 +28,8 @@ import javax.inject.Inject;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewModel> extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private T mViewDataBinding;
-
-    @Inject
-    protected V mViewModel;
 
     private ProgressDialog mProgressDialog;
 
@@ -41,7 +37,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
     protected void onCreate(Bundle savedInstanceState) {
         performDependencyInjection(getBuildComponent());
         super.onCreate(savedInstanceState);
-        performDataBinding();
     }
 
 
@@ -49,21 +44,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
     @LayoutRes
     int getLayoutId();
 
-    /**
-     * Override for set binding variable
-     *
-     * @return variable id
-     */
-    public abstract int getBindingVariable();
-
-
-    /**
-     *
-     * DataBinding getter
-     */
-    public T getViewDataBinding() {
-        return mViewDataBinding;
-    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -141,12 +121,4 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends ViewMode
         }
     }
 
-    /**
-     * Setting views and variables of databinding
-     */
-    private void performDataBinding() {
-        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-        mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
-        mViewDataBinding.executePendingBindings();
-    }
 }

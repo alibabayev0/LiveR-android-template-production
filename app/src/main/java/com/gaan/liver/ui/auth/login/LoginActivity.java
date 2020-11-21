@@ -13,14 +13,16 @@ import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.databinding.ActivityLoginBinding;
 import com.gaan.liver.di.component.ActivityComponent;
 
-public class LoginActivity extends BaseActivity<ActivityLoginBinding,LoginViewModel> implements ILoginNavigator {
+import javax.inject.Inject;
 
-    ActivityLoginBinding mLoginBinding;
+public class LoginActivity extends BaseActivity implements ILoginNavigator {
+
+    @Inject
+    LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLoginBinding = getViewDataBinding();
     }
 
     @Override
@@ -28,10 +30,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding,LoginViewMo
         return R.layout.activity_login;
     }
 
-    @Override
-    public int getBindingVariable() {
-        return BR.viewModel;
-    }
 
     @Override
     public void performDependencyInjection(ActivityComponent buildComponent) {
