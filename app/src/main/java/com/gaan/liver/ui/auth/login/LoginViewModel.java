@@ -5,7 +5,7 @@ import com.gaan.liver.data.model.LoggedStatus;
 import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
 import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerLoginRequest;
-import com.gaan.liver.data.repository.AuthRepo;
+import com.gaan.liver.data.repository.AuthRepository;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.rx.SchedulerProvider;
@@ -18,17 +18,17 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     public String password;
 
     //DEPENDENCY INJECTION MISSING, I WILL UPDATE..
-    AuthRepo mAuthRepo;
+    AuthRepository mAuthRepository;
 
     @Inject
-    public LoginViewModel(AuthRepo authRepo,IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
+    public LoginViewModel(AuthRepository authRepository, IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
-        mAuthRepo = authRepo;
+        mAuthRepository = authRepository;
     }
 
     public void login(){
         setIsLoading(true);
-        getCompositeDisposable().add(mAuthRepo
+        getCompositeDisposable().add(mAuthRepository
                 .postLoginApiCall(new ServerLoginRequest(username,password))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(
@@ -53,7 +53,7 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
 
     public void onFbLoginClick(String fbId,String accessToken){
         setIsLoading(true);
-        getCompositeDisposable().add(mAuthRepo
+        getCompositeDisposable().add(mAuthRepository
                 .postFacebookApiCall(new FacebookLoginRequest(fbId,accessToken))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(
@@ -78,7 +78,7 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
 
     public void onGoogleLoginClick(String googleUserId,String idToken){
         setIsLoading(true);
-        getCompositeDisposable().add(mAuthRepo
+        getCompositeDisposable().add(mAuthRepository
                 .postGoogleApiCall(new GoogleLoginRequest(googleUserId,idToken))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(

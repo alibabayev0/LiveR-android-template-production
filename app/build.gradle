@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -31,12 +32,10 @@ android {
 
 
 def lifecycleExtensionVersion = '2.2.0'
-def butterknifeVersion = '10.1.0'
-def supportVersion = '29.0.0'
 def retrofitVersion = '2.3.0'
 def glideVersion = '4.9.0'
 def rxJavaVersion = '2.1.1'
-def daggerVersion = '2.16'
+def daggerVersion = '2.22'
 def mockitoVersion = '2.11.0'
 
 
@@ -68,15 +67,12 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+//    testImplementation 'junit:junit:4.13.1'
+//    androidTestImplementation 'androidx.test:runner:1.3.0'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Save Datas Securely
     api 'com.orhanobut:hawk:2.0.1'
@@ -88,4 +84,11 @@ dependencies {
     //Logger
     api 'com.jakewharton.timber:timber:4.7.1'
 
+    //SmartLocation
+    api 'io.nlopez.smartlocation:library:3.3.3'
+
+    //Camera
+    api 'com.mindorks:paracamera:0.2.2'
+
+    api 'com.android.support:multidex:1.0.3'
 }

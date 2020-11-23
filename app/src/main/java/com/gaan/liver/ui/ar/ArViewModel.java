@@ -15,22 +15,20 @@ import com.gaan.liver.util.sensors.GlobalSensor;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 import io.reactivex.internal.operators.single.SingleJust;
 
-public class ArViewModel extends BaseViewModel<ArNavigator> implements SensorValueChangedListener{
+public class ArViewModel extends BaseViewModel<ArNavigator> {
 
+    @Inject
     public ArViewModel(IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
-
     }
 
     public void initSensor(){
 
     }
 
-    @Override
-    public void onHorizontalAndVerticalDegreeChanged() {
-
-    }
 }

@@ -10,17 +10,15 @@ import com.orhanobut.hawk.Hawk;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 
 
-public class MvvmApp extends Application {
 
-    public AppComponent appComponent;
-
-    @Inject
-    CalligraphyConfig mCalligraphyConfig;
+public class MvvmApp extends DaggerApplication {
 
     @Override
     public void onCreate() {
@@ -28,18 +26,13 @@ public class MvvmApp extends Application {
 
         Hawk.init(this).build();
 
-        appComponent = DaggerAppComponent.builder()
-                .application(this)
-                .build();
-
-        appComponent.inject(this);
-
         Logger.init();
 
-        ViewPump.init(ViewPump.builder()
-                .addInterceptor(new CalligraphyInterceptor(
-                        new CalligraphyConfig.Builder()
-                                .build()))
-                .build());
+
+    }
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder().application(this).build();
     }
 }

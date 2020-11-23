@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.databinding.library.baseAdapters.BR;
-
 import com.gaan.liver.R;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
-import com.gaan.liver.databinding.ActivityRegisterBinding;
-import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.util.logger.Logger;
 
-public class RegisterActivity extends BaseActivity implements IRegisterNavigator{
+public class RegisterActivity extends BaseActivity<RegisterViewModel> implements IRegisterNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +22,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterNavigator
     }
 
     @Override
-    public void performDependencyInjection(ActivityComponent buildComponent) {
-        buildComponent.inject(this);
+    public Class<RegisterViewModel> getViewModelClass() {
+        return RegisterViewModel.class;
     }
 
     public static Intent newIntent(Context context) {

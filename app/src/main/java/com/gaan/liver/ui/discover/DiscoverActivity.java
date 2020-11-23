@@ -4,17 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.databinding.library.baseAdapters.BR;
-
 import com.gaan.liver.R;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
-import com.gaan.liver.databinding.ActivityDiscoverBinding;
-import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.messenger.MessengerActivity;
 import com.gaan.liver.ui.profile.ProfileActivity;
 
-public class DiscoverActivity extends BaseActivity implements IDiscoverNavigator{
+public class DiscoverActivity extends BaseActivity<DiscoverViewModel> implements IDiscoverNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +24,8 @@ public class DiscoverActivity extends BaseActivity implements IDiscoverNavigator
     }
 
     @Override
-    public void performDependencyInjection(ActivityComponent buildComponent) {
-        buildComponent.inject(this);
+    public Class<DiscoverViewModel> getViewModelClass() {
+        return DiscoverViewModel.class;
     }
 
     public static Intent newIntent(Context context) {

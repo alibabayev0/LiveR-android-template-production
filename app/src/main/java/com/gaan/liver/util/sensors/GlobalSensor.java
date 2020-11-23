@@ -10,6 +10,7 @@ import androidx.databinding.ObservableFloat;
 import androidx.lifecycle.LiveData;
 
 import com.gaan.liver.data.model.SensorXY;
+import com.gaan.liver.ui.ar.SensorValueChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,9 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.subjects.PublishSubject;
 
 public class GlobalSensor implements SensorEventListener {
     private List<float[]> mRotHist = new ArrayList<float[]>();
@@ -35,15 +38,19 @@ public class GlobalSensor implements SensorEventListener {
     // at least 25 degrees.
     private float mFacing = Float.NaN;
 
+    public PublishSubject<SensorXY> sensorXYPublishSubject = PublishSubject.create();
 
-    private Context mContext;
-    public GlobalSensor(Context context){
-        mContext = context;
+    SensorXY sensorXY;
+
+    public GlobalSensor(){
+    }
+
+    public Observable<SensorXY> getSensorXYPublishSubject() {
+        return sensorXYPublishSubject;
     }
 
     public static final float THIRTY_DEGREE_IN_RADIAN = 0.261799f; // 15
     public static final float ONE_FIFTY_FIVE_DEGREE_IN_RADIAN = 3.05433f; //175
-
     @Override
     public void onSensorChanged(SensorEvent event)
     {
@@ -83,9 +90,8 @@ public class GlobalSensor implements SensorEventListener {
                 verticalDegree = radianToDegree(inclination);
                 mFacing = normalizeDegree(radianToDegree(mFacing));
 
-                SensorXY sensorXY = new SensorXY(mFacing,verticalDegree);
-
-//                bearingChangeListener.doJob(mFacing,verticalDegree);
+                sensorXY = new SensorXY(mFacing,verticalDegree);
+                sensorXYPublishSubject.onNext(sensorXY);
             }
         }
     }

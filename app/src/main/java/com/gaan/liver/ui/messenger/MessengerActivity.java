@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.databinding.library.baseAdapters.BR;
-
 import com.gaan.liver.R;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
-import com.gaan.liver.databinding.ActivityMessengerBinding;
-import com.gaan.liver.di.component.ActivityComponent;
 import com.gaan.liver.ui.discover.DiscoverActivity;
 
-public class MessengerActivity extends BaseActivity implements IMessengerNavigator {
+public class MessengerActivity extends BaseActivity<MessengerViewModel> implements IMessengerNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +22,8 @@ public class MessengerActivity extends BaseActivity implements IMessengerNavigat
     }
 
     @Override
-    public void performDependencyInjection(ActivityComponent buildComponent) {
-        buildComponent.inject(this);
+    public Class<MessengerViewModel> getViewModelClass() {
+        return MessengerViewModel.class;
     }
 
     public static Intent newIntent(Context context) {

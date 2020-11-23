@@ -28,6 +28,7 @@ public class BaseViewModel<N> extends ViewModel {
         this.mUserDataManager = iUserDataManager;
     }
 
+
     @Override
     protected void onCleared() {
         mCompositeDisposable.dispose();

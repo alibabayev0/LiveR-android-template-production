@@ -6,37 +6,40 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.LayoutRes;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.gaan.liver.MvvmApp;
-import com.gaan.liver.di.component.ActivityComponent;
-import com.gaan.liver.di.component.AppComponent;
-import com.gaan.liver.di.component.DaggerActivityComponent;
-import com.gaan.liver.di.module.ActivityModule;
+import com.gaan.liver.ViewModelFactory;
 import com.gaan.liver.ui.auth.login.LoginActivity;
+import com.gaan.liver.ui.auth.splash.SplashViewModel;
 import com.gaan.liver.util.network.NetworkUtils;
 import com.gaan.liver.util.ui.ViewUIUtil;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Inject;
 
+import dagger.android.support.DaggerAppCompatActivity;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<V extends ViewModel> extends DaggerAppCompatActivity {
 
+    protected final String TAG = this.getClass().getName();
 
     private ProgressDialog mProgressDialog;
 
+    @Inject
+    ViewModelFactory viewModelFactory;
+    protected V mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        performDependencyInjection(getBuildComponent());
         super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this, viewModelFactory).get(getViewModelClass());
     }
 
 
@@ -44,25 +47,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     int getLayoutId();
 
+    public abstract Class<V> getViewModelClass();
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
-
-
-    /**
-     * getBuildComponent building appComponent and activitymodule
-     * @return ActivityComponent
-     */
-    private ActivityComponent getBuildComponent() {
-        return DaggerActivityComponent.builder()
-                .appComponent(((MvvmApp) getApplication()).appComponent)
-                .activityModule(new ActivityModule(this))
-                .build();
-    }
-
-    public abstract void performDependencyInjection(ActivityComponent buildComponent);
 
     /**
      *

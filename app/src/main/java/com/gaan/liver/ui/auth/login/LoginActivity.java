@@ -5,20 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.databinding.library.baseAdapters.BR;
-
 import com.gaan.liver.R;
+import com.gaan.liver.data.repository.AuthRepository;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
-import com.gaan.liver.databinding.ActivityLoginBinding;
-import com.gaan.liver.di.component.ActivityComponent;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends BaseActivity implements ILoginNavigator {
-
-    @Inject
-    LoginViewModel loginViewModel;
+public class LoginActivity extends BaseActivity<LoginViewModel> implements ILoginNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +24,11 @@ public class LoginActivity extends BaseActivity implements ILoginNavigator {
         return R.layout.activity_login;
     }
 
-
     @Override
-    public void performDependencyInjection(ActivityComponent buildComponent) {
-        buildComponent.inject(this);
+    public Class<LoginViewModel> getViewModelClass() {
+        return LoginViewModel.class;
     }
+
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);

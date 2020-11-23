@@ -15,7 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 @Singleton
-public interface IAuthApi {
+public interface AuthService {
 
     @POST("/${LOGIN_URL}")
     Single<LoginResponse> postFacebookApiCall(@Body FacebookLoginRequest facebookLoginRequest);

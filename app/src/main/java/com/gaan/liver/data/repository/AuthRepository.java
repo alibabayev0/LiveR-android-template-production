@@ -6,7 +6,7 @@ import com.gaan.liver.data.model.api.request.ServerLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
 import com.gaan.liver.data.model.api.response.LoginResponse;
 import com.gaan.liver.data.model.api.response.RegisterResponse;
-import com.gaan.liver.data.remote.IAuthApi;
+import com.gaan.liver.data.remote.AuthService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,12 +14,12 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 
 @Singleton
-public class AuthRepo {
+public class AuthRepository {
 
-    private IAuthApi authApi;
+    private AuthService authApi;
 
     @Inject
-    public AuthRepo(IAuthApi authApi) {
+    public AuthRepository(AuthService authApi) {
         this.authApi = authApi;
     }
 

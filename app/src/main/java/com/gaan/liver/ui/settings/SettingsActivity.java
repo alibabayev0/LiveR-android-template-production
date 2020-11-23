@@ -4,14 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.databinding.library.baseAdapters.BR;
-
 import com.gaan.liver.R;
 import com.gaan.liver.ui.base.BaseActivity;
-import com.gaan.liver.databinding.ActivitySettingsBinding;
-import com.gaan.liver.di.component.ActivityComponent;
 
-public class SettingsActivity extends BaseActivity implements ISettingsNavigator {
+public class SettingsActivity extends BaseActivity<SettingsViewModel> implements ISettingsNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +20,8 @@ public class SettingsActivity extends BaseActivity implements ISettingsNavigator
     }
 
     @Override
-    public void performDependencyInjection(ActivityComponent buildComponent) {
-        buildComponent.inject(this);
+    public Class<SettingsViewModel> getViewModelClass() {
+        return SettingsViewModel.class;
     }
 
     public static Intent newIntent(Context context) {
