@@ -30,7 +30,7 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.internal.operators.single.SingleJust;
 
-public class ArViewModel extends BaseViewModel<ArNavigator> implements SensorListener {
+public class ArViewModel extends BaseViewModel<ArNavigator>  {
     //Hardware Sensors (We cannt inject from readonly files)
     Sensor mGravity;
     Sensor mMagnetic;
@@ -57,6 +57,19 @@ public class ArViewModel extends BaseViewModel<ArNavigator> implements SensorLis
         registerSensors();
         initLocation();
     }
+    
+    public void stopSearching(){
+        finalizeSensor();
+        finalizeLocation();
+    }
+
+    private void finalizeSensor() {
+        mSensorManager.unregisterListener(globalSensor);
+    }
+
+    private void finalizeLocation() {
+        locationControl.stop();
+    }
 
     //Initializa sensors for Phone degree in real life x,y,z.
     private void initSensors(Context context) {
@@ -80,8 +93,6 @@ public class ArViewModel extends BaseViewModel<ArNavigator> implements SensorLis
         mSensorManager.registerListener(globalSensor,mMagnetic,SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(globalSensor,mAccelerometr,SensorManager.SENSOR_DELAY_NORMAL);
 
-        globalSensor.setSensorListener(this);
-
         Disposable disposable = globalSensor.getSensorXYPublishSubject().subscribe(s->
                 Logger.d(s.getHorizontalDegree() + " " + s.getVerticalDegree())
         );
@@ -89,8 +100,4 @@ public class ArViewModel extends BaseViewModel<ArNavigator> implements SensorLis
         getCompositeDisposable().add(disposable);
     }
 
-    @Override
-    public void onSensorChanged(SensorXY s) {
-        Logger.d(s.getHorizontalDegree() + " " + s.getVerticalDegree());
-    }
 }

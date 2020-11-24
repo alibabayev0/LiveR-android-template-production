@@ -6,7 +6,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import com.gaan.liver.data.model.SensorXY;
-import com.gaan.liver.ui.ar.SensorListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +81,7 @@ public class GlobalSensor implements SensorEventListener {
                 mFacing = normalizeDegree(radianToDegree(mFacing));
 
                 sensorXY = new SensorXY(mFacing,verticalDegree);
-                sensorListener.onSensorChanged(sensorXY);
-//                sensorXYPublishSubject.onNext(sensorXY);
+                sensorXYPublishSubject.onNext(sensorXY);
             }
         }
     }
@@ -152,9 +150,4 @@ public class GlobalSensor implements SensorEventListener {
 
     }
 
-    SensorListener sensorListener;
-
-    public void setSensorListener(SensorListener listener) {
-        sensorListener = listener;
-    }
 }

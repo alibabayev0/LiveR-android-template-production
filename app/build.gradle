@@ -37,7 +37,14 @@ def glideVersion = '4.9.0'
 def rxJavaVersion = '2.1.1'
 def daggerVersion = '2.22'
 def mockitoVersion = '2.11.0'
-
+def timberVersion = '4.7.1'
+def smartLocationVersion = '3.3.3'
+def paraCameraVersion = '0.2.2'
+def multidexVersion = '1.0.3'
+def circleImageViewVersion = '3.1.0'
+def hawkVersion = '2.0.1'
+def viewPumpVersion = '2.0.3'
+def calligraphyVersion = '3.1.1'
 
 dependencies {
 
@@ -75,20 +82,26 @@ dependencies {
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Save Datas Securely
-    api 'com.orhanobut:hawk:2.0.1'
+    api "com.orhanobut:hawk:$hawkVersion"
 
     //Fonts Library
-    api 'io.github.inflationx:calligraphy3:3.1.1'
-    api 'io.github.inflationx:viewpump:2.0.3'
+
+    api "io.github.inflationx:calligraphy3:$calligraphyVersion"
+    api "io.github.inflationx:viewpump:$viewPumpVersion"
 
     //Logger
-    api 'com.jakewharton.timber:timber:4.7.1'
+    api "com.jakewharton.timber:timber:$timberVersion"
 
     //SmartLocation
-    api 'io.nlopez.smartlocation:library:3.3.3'
+
+    api "io.nlopez.smartlocation:library:$smartLocationVersion"
 
     //Camera
-    api 'com.mindorks:paracamera:0.2.2'
+    api "com.mindorks:paracamera:$paraCameraVersion"
 
-    api 'com.android.support:multidex:1.0.3'
+    //MultiDex Functions more than 65k
+    api "com.android.support:multidex:$multidexVersion"
+
+    //UI - Circle
+    api "de.hdodenhof:circleimageview:$circleImageViewVersion"
 }

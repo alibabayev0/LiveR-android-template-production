@@ -32,6 +32,7 @@ public abstract class BaseActivity<V extends ViewModel> extends DaggerAppCompatA
 
     private ProgressDialog mProgressDialog;
 
+
     @Inject
     ViewModelFactory viewModelFactory;
     protected V mViewModel;

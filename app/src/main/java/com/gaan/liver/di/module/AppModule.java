@@ -14,6 +14,7 @@ import com.gaan.liver.util.rx.AppSchedulerProvider;
 import com.gaan.liver.util.rx.SchedulerProvider;
 import com.gaan.liver.util.sensors.GlobalSensor;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -59,6 +60,8 @@ public class AppModule {
         return userDataManager;
     }
 
+
+    @Singleton
     @Provides
     SmartLocation.LocationControl provideLocationControl(Context context){
         LocationAccuracy trackingAccuracy = LocationAccuracy.HIGH;

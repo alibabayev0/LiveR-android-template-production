@@ -8,7 +8,6 @@ import com.gaan.liver.di.builder.ActivityBuildersModule;
 import com.gaan.liver.di.module.AppModule;
 import com.gaan.liver.di.module.NetworkModule;
 import com.gaan.liver.di.module.RepositoryModule;
-import com.gaan.liver.di.module.SensorModule;
 import com.gaan.liver.di.module.ViewModelFactoryModule;
 import com.gaan.liver.util.rx.SchedulerProvider;
 
