@@ -12,6 +12,8 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel<N> extends ViewModel {
 
+    protected final String TAG = this.getClass().getName();
+
     private final IUserDataManager mUserDataManager;
 
     private final SchedulerProvider mSchedulerProvider;
@@ -63,4 +65,5 @@ public class BaseViewModel<N> extends ViewModel {
     public SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;
     }
+
 }

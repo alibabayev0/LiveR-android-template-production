@@ -17,6 +17,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements ILogi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel.setNavigator(this);
+        openArActivity();
     }
 
     @Override

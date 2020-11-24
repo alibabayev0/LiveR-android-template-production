@@ -16,7 +16,6 @@ import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity<SplashViewModel> implements SplashNavigator {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

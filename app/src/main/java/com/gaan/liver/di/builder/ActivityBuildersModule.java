@@ -2,6 +2,7 @@ package com.gaan.liver.di.builder;
 
 import com.gaan.liver.data.remote.AuthService;
 import com.gaan.liver.di.module.NetworkModule;
+import com.gaan.liver.di.module.SensorModule;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.auth.forgotpassword.ForgotPasswordActivity;
 import com.gaan.liver.ui.auth.login.LoginActivity;
@@ -42,6 +43,6 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector
     abstract SettingsActivity contributeSettingsActivity();
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = {SensorModule.class})
     abstract ArActivity contributeArActivity();
 }

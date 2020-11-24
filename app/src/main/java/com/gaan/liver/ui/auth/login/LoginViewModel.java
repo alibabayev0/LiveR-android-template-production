@@ -18,12 +18,12 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     public String password;
 
     //DEPENDENCY INJECTION MISSING, I WILL UPDATE..
+    @Inject
     AuthRepository mAuthRepository;
 
     @Inject
-    public LoginViewModel(AuthRepository authRepository, IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
+    public LoginViewModel(IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
-        mAuthRepository = authRepository;
     }
 
     public void login(){

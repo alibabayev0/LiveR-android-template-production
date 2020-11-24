@@ -19,7 +19,8 @@ public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel.setNavigator(ArActivity.this);
+        mViewModel.setNavigator(this);
+        mViewModel.startSearching();
     }
 
     @Override

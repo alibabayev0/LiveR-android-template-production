@@ -1,26 +1,17 @@
 package com.gaan.liver.util.sensors;
 
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import androidx.databinding.ObservableFloat;
-import androidx.lifecycle.LiveData;
-
 import com.gaan.liver.data.model.SensorXY;
-import com.gaan.liver.ui.ar.SensorValueChangedListener;
+import com.gaan.liver.ui.ar.SensorListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.Single;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.subjects.PublishSubject;
 
 public class GlobalSensor implements SensorEventListener {
@@ -33,16 +24,16 @@ public class GlobalSensor implements SensorEventListener {
     float[] mRotationMatrix = new float[9];
     float[] mAaccelerometer;
     float verticalDegree;
-    float z;
     // the direction of the back camera, only valid if the device is tilted up by
     // at least 25 degrees.
     private float mFacing = Float.NaN;
 
-    public PublishSubject<SensorXY> sensorXYPublishSubject = PublishSubject.create();
+    private PublishSubject<SensorXY> sensorXYPublishSubject;
 
     SensorXY sensorXY;
 
     public GlobalSensor(){
+        sensorXYPublishSubject = PublishSubject.create();
     }
 
     public Observable<SensorXY> getSensorXYPublishSubject() {
@@ -91,7 +82,8 @@ public class GlobalSensor implements SensorEventListener {
                 mFacing = normalizeDegree(radianToDegree(mFacing));
 
                 sensorXY = new SensorXY(mFacing,verticalDegree);
-                sensorXYPublishSubject.onNext(sensorXY);
+                sensorListener.onSensorChanged(sensorXY);
+//                sensorXYPublishSubject.onNext(sensorXY);
             }
         }
     }
@@ -158,5 +150,11 @@ public class GlobalSensor implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    SensorListener sensorListener;
+
+    public void setSensorListener(SensorListener listener) {
+        sensorListener = listener;
     }
 }

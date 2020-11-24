@@ -11,7 +11,7 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
     Camera camera;
     SurfaceHolder holder;
 
-    public ShowCamera(Camera camera) {
+    public ShowCamera(Context context,Camera camera) {
         super(context);
         this.camera = camera;
         holder = getHolder();
