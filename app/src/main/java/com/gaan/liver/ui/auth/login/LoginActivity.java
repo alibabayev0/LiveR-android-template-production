@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.gaan.liver.R;
-import com.gaan.liver.data.repository.AuthRepository;
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.base.BaseActivity;
-
-import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity<LoginViewModel> implements ILoginNavigator {
 

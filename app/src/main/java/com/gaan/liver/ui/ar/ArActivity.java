@@ -2,8 +2,10 @@ package com.gaan.liver.ui.ar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.view.Display;
 import android.widget.FrameLayout;
 
 import androidx.databinding.DataBindingUtil;
@@ -22,12 +24,14 @@ import javax.inject.Inject;
 
 public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator {
 
-     ActivityArBinding activityArBinding;
+    ActivityArBinding activityArBinding;
 
     Camera camera;
     ShowCamera showCamera;
 
     FrameLayout frameLayout;
+
+    int deviceSizeHeight,deviceSizeWidth;   //3020 1440
 
     @Override
     public int getLayoutId() {
@@ -73,7 +77,16 @@ public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator
     @Override
     protected void onStart() {
         super.onStart();
+        initSizes();
         mViewModel.startSearching();
+    }
+
+    private void initSizes() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        deviceSizeWidth = size.x;
+        deviceSizeHeight = size.y;
     }
 
     @Override

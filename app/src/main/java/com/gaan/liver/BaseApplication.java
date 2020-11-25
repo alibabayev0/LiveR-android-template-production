@@ -18,7 +18,7 @@ import io.github.inflationx.viewpump.ViewPump;
 
 
 
-public class MvvmApp extends DaggerApplication {
+public class BaseApplication extends DaggerApplication {
 
     @Override
     public void onCreate() {

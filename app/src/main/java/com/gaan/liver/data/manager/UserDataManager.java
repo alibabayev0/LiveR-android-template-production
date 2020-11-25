@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.gaan.liver.data.local.AppPreferencesHelper;
 import com.gaan.liver.data.local.IAppPreferencesHelper;
-import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.model.pojo.LoggedStatus;
 
 import javax.inject.Inject;
 

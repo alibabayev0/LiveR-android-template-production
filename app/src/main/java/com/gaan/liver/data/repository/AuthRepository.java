@@ -1,9 +1,13 @@
 package com.gaan.liver.data.repository;
 
 import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
+import com.gaan.liver.data.model.api.request.ForgotPasswordRequest;
+import com.gaan.liver.data.model.api.request.ForgotPasswordTokenRequest;
 import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
+import com.gaan.liver.data.model.api.response.ForgotPasswordResponse;
+import com.gaan.liver.data.model.api.response.ForgotPasswordTokenResponse;
 import com.gaan.liver.data.model.api.response.LoginResponse;
 import com.gaan.liver.data.model.api.response.RegisterResponse;
 import com.gaan.liver.data.remote.AuthService;
@@ -37,6 +41,14 @@ public class AuthRepository {
 
     public Single<RegisterResponse> postRegisterCall(ServerRegisterRequest serverRegisterRequest){
         return authApi.postRegisterCall(serverRegisterRequest);
+    }
+
+    public Single<ForgotPasswordResponse> getForgotPassword(ForgotPasswordRequest forgotPasswordRequest){
+        return authApi.getForgotPassword(forgotPasswordRequest);
+    }
+
+    public Single<ForgotPasswordTokenResponse> getForgotPasswordTokenValidCall(ForgotPasswordTokenRequest forgotPasswordTokenRequest){
+        return authApi.getForgotPasswordTokenValidCall(forgotPasswordTokenRequest);
     }
 
 }

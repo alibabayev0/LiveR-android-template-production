@@ -1,6 +1,6 @@
 package com.gaan.liver.data.local;
 
-import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.model.pojo.LoggedStatus;
 
 public interface IAppPreferencesHelper {
     String getUserAccessToken();

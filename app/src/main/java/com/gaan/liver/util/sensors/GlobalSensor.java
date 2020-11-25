@@ -5,7 +5,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.gaan.liver.data.model.SensorXY;
+import com.gaan.liver.data.model.pojo.SensorXY;
+import com.gaan.liver.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,26 +76,14 @@ public class GlobalSensor implements SensorEventListener {
                 else
                 {
                     setRotHist();
-                    mFacing = findFacing();
+                    mFacing = SensorUtil.findFacing(SensorUtil.average(mRotHist));
                 }
-                verticalDegree = radianToDegree(inclination);
-                mFacing = normalizeDegree(radianToDegree(mFacing));
+                verticalDegree = MathUtil.toDegree(inclination);
+                mFacing = MathUtil.normalizeDegree(MathUtil.toDegree(mFacing));
 
                 sensorXY = new SensorXY(mFacing,verticalDegree);
                 sensorXYPublishSubject.onNext(sensorXY);
             }
-        }
-    }
-
-    private float radianToDegree(float radian){
-        return (float) (radian * 180 / Math.PI);
-    }
-
-    private float normalizeDegree(float value){
-        if(value >= 0.0f && value <= 180.0f){
-            return value;
-        }else{
-            return 180 + (180 + value);
         }
     }
 
@@ -115,36 +104,6 @@ public class GlobalSensor implements SensorEventListener {
         mRotHistIndex %= mHistoryMaxLength;
     }
 
-    private float findFacing()
-    {
-        float[] averageRotHist = average(mRotHist);
-        return (float) Math.atan2(-averageRotHist[2], -averageRotHist[5]);
-    }
-
-    private float findAzimuth(){
-        float[] averageRotHist = average(mRotHist);
-        return (float) Math.atan2((averageRotHist[1] - averageRotHist[3]), (averageRotHist[0] + averageRotHist[4]));
-    }
-
-
-    public float[] average(List<float[]> values)
-    {
-        float[] result = new float[9];
-        for (float[] value : values)
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                result[i] += value[i];
-            }
-        }
-
-        for (int i = 0; i < 9; i++)
-        {
-            result[i] = result[i] / values.size();
-        }
-
-        return result;
-    }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 

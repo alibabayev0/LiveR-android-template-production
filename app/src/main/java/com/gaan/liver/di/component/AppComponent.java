@@ -2,7 +2,7 @@ package com.gaan.liver.di.component;
 
 import android.app.Application;
 
-import com.gaan.liver.MvvmApp;
+import com.gaan.liver.BaseApplication;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.di.builder.ActivityBuildersModule;
 import com.gaan.liver.di.module.AppModule;
@@ -16,7 +16,6 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
-import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
@@ -30,13 +29,13 @@ import dagger.android.support.AndroidSupportInjectionModule;
                 ViewModelFactoryModule.class
         }
 )
-public interface AppComponent extends AndroidInjector<MvvmApp> {
+public interface AppComponent extends AndroidInjector<BaseApplication> {
 
     IUserDataManager getUserDataManager();
 
     SchedulerProvider getSchedulerProvider();
 
-    void inject(MvvmApp app);
+    void inject(BaseApplication app);
 
     @Component.Builder
     interface Builder {

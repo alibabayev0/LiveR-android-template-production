@@ -1,4 +1,4 @@
-package com.gaan.liver.data.model;
+package com.gaan.liver.data.model.pojo;
 
 public class SensorXY {
     private float horizontalDegree;

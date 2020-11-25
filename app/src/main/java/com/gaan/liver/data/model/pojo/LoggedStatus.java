@@ -1,4 +1,4 @@
-package com.gaan.liver.data.model;
+package com.gaan.liver.data.model.pojo;
 
 public enum LoggedStatus {
     LOGGED_IN_MODE_LOGGED_OUT(0),

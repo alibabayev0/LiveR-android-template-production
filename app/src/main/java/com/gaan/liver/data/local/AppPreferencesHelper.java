@@ -1,8 +1,6 @@
 package com.gaan.liver.data.local;
 
-import android.content.Context;
-
-import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.model.pojo.LoggedStatus;
 import com.orhanobut.hawk.Hawk;
 
 import javax.inject.Inject;

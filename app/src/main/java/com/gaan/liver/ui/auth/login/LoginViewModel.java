@@ -1,7 +1,7 @@
 package com.gaan.liver.ui.auth.login;
 
 
-import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.model.pojo.LoggedStatus;
 import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
 import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
 import com.gaan.liver.data.model.api.request.ServerLoginRequest;

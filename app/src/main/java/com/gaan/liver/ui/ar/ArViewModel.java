@@ -1,34 +1,19 @@
 package com.gaan.liver.ui.ar;
 
-import android.app.Application;
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
-import android.util.Log;
 
-import androidx.lifecycle.Observer;
-
-import com.gaan.liver.data.model.LoggedStatus;
-import com.gaan.liver.data.model.SensorXY;
-import com.gaan.liver.data.model.api.request.ServerLoginRequest;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.logger.Logger;
 import com.gaan.liver.util.rx.SchedulerProvider;
 import com.gaan.liver.util.sensors.GlobalSensor;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
-import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.operators.single.SingleJust;
 
 public class ArViewModel extends BaseViewModel<ArNavigator>  {
     //Hardware Sensors (We cannt inject from readonly files)
@@ -94,7 +79,7 @@ public class ArViewModel extends BaseViewModel<ArNavigator>  {
         mSensorManager.registerListener(globalSensor,mAccelerometr,SensorManager.SENSOR_DELAY_NORMAL);
 
         Disposable disposable = globalSensor.getSensorXYPublishSubject().subscribe(s->
-                Logger.d(s.getHorizontalDegree() + " " + s.getVerticalDegree())
+            Logger.d(s.getHorizontalDegree() + " " + s.getVerticalDegree())
         );
 
         getCompositeDisposable().add(disposable);

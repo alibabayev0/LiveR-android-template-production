@@ -3,7 +3,7 @@ package com.gaan.liver.data.model.api.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public final class LoginResponse {
+public final class LoginResponse extends BaseResponse{
 
     @Expose
     @SerializedName("access_token")

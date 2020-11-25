@@ -8,13 +8,10 @@ import com.gaan.liver.data.local.AppPreferencesHelper;
 import com.gaan.liver.data.local.IAppPreferencesHelper;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.data.manager.UserDataManager;
-import com.gaan.liver.data.remote.AuthService;
-import com.gaan.liver.data.repository.AuthRepository;
 import com.gaan.liver.util.rx.AppSchedulerProvider;
 import com.gaan.liver.util.rx.SchedulerProvider;
 import com.gaan.liver.util.sensors.GlobalSensor;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,9 +20,6 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.nlopez.smartlocation.SmartLocation;
 import io.nlopez.smartlocation.location.config.LocationAccuracy;
 import io.nlopez.smartlocation.location.config.LocationParams;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class AppModule {

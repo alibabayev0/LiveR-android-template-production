@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.databinding.ObservableBoolean;
 
 import com.gaan.liver.data.manager.IUserDataManager;
-import com.gaan.liver.data.model.LoggedStatus;
+import com.gaan.liver.data.model.pojo.LoggedStatus;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.util.rx.SchedulerProvider;
 
