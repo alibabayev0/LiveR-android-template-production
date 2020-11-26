@@ -1,16 +1,16 @@
 package com.gaan.liver.data.remote;
 
 
-import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
-import com.gaan.liver.data.model.api.request.ForgotPasswordRequest;
-import com.gaan.liver.data.model.api.request.ForgotPasswordTokenRequest;
-import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
-import com.gaan.liver.data.model.api.request.ServerLoginRequest;
-import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
-import com.gaan.liver.data.model.api.response.ForgotPasswordResponse;
-import com.gaan.liver.data.model.api.response.ForgotPasswordTokenResponse;
-import com.gaan.liver.data.model.api.response.LoginResponse;
-import com.gaan.liver.data.model.api.response.RegisterResponse;
+import com.gaan.liver.data.model.api.request.PostFacebookLoginRequest;
+import com.gaan.liver.data.model.api.request.GetForgotPasswordRequest;
+import com.gaan.liver.data.model.api.request.GetForgotPasswordTokenRequest;
+import com.gaan.liver.data.model.api.request.PostGoogleLoginRequest;
+import com.gaan.liver.data.model.api.request.PostServerLoginRequest;
+import com.gaan.liver.data.model.api.request.PostServerRegisterRequest;
+import com.gaan.liver.data.model.api.response.GetForgotPasswordResponse;
+import com.gaan.liver.data.model.api.response.GetForgotPasswordTokenResponse;
+import com.gaan.liver.data.model.api.response.PostLoginResponse;
+import com.gaan.liver.data.model.api.response.PostRegisterResponse;
 
 import javax.inject.Singleton;
 
@@ -19,23 +19,28 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import static com.gaan.liver.data.constant.ApiConstants.AUTH_SERVICE_POST_FORGOT_PASSWORD_TOKEN_URL;
+import static com.gaan.liver.data.constant.ApiConstants.AUTH_SERVICE_POST_FORGOT_PASSWORD_URL;
+import static com.gaan.liver.data.constant.ApiConstants.AUTH_SERVICE_POST_LOGIN_URL;
+import static com.gaan.liver.data.constant.ApiConstants.AUTH_SERVICE_POST_REGISTER_URL;
+
 @Singleton
 public interface AuthService {
-    @POST("/${LOGIN_URL}")
-    Single<LoginResponse> postFacebookApiCall(@Body FacebookLoginRequest facebookLoginRequest);
+    @POST(AUTH_SERVICE_POST_LOGIN_URL)
+    Single<PostLoginResponse> postFacebookApiCall(@Body PostFacebookLoginRequest postFacebookLoginRequest);
 
-    @POST("/${LOGIN_URL}")
-    Single<LoginResponse> postGoogleApiCall(@Body GoogleLoginRequest googleLoginRequest);
+    @POST(AUTH_SERVICE_POST_LOGIN_URL)
+    Single<PostLoginResponse> postGoogleApiCall(@Body PostGoogleLoginRequest postGoogleLoginRequest);
 
-    @POST("/${LOGIN_URL}")
-    Single<LoginResponse> postLoginApiCall(@Body ServerLoginRequest serverLoginRequest);
+    @POST(AUTH_SERVICE_POST_LOGIN_URL)
+    Single<PostLoginResponse> postLoginApiCall(@Body PostServerLoginRequest postServerLoginRequest);
 
-    @POST("/${REGISTER_URL}")
-    Single<RegisterResponse> postRegisterCall(@Body ServerRegisterRequest serverRegisterRequest);
+    @POST(AUTH_SERVICE_POST_REGISTER_URL)
+    Single<PostRegisterResponse> postRegisterCall(@Body PostServerRegisterRequest postServerRegisterRequest);
 
-    @GET("/${FORGOT_PASSWORD_URL}")
-    Single<ForgotPasswordResponse> getForgotPassword(@Body ForgotPasswordRequest forgotPasswordRequest);
+    @POST(AUTH_SERVICE_POST_FORGOT_PASSWORD_URL)
+    Single<GetForgotPasswordResponse> getForgotPassword(@Body GetForgotPasswordRequest getForgotPasswordRequest);
 
-    @GET("/${FORGOT_PASSWORD_TOKEN_VALID_URL}")
-    Single<ForgotPasswordTokenResponse> getForgotPasswordTokenValidCall(@Body ForgotPasswordTokenRequest forgotPasswordTokenRequest);
+    @POST(AUTH_SERVICE_POST_FORGOT_PASSWORD_TOKEN_URL)
+    Single<GetForgotPasswordTokenResponse> getForgotPasswordTokenValidCall(@Body GetForgotPasswordTokenRequest getForgotPasswordTokenRequest);
 }

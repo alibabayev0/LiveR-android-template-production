@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.gaan.liver.R;
 import com.gaan.liver.ui.base.BaseActivity;
 
-public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordViewModel> implements IForgotPasswordNavigator {
+public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordViewModel> implements IForgotPasswordNavigator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +26,25 @@ public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordViewModel
 
     public static Intent newIntent(Context context) {
         return new Intent(context, ForgotPasswordActivity.class);
+    }
+
+    @Override
+    public void showViewOnResponse() {
+
+    }
+
+    @Override
+    public void userNotFoundError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void passwordSuccefullyChangedResponse() {
+
+    }
+
+    @Override
+    public void passwordChangingError(Throwable throwable) {
+
     }
 }

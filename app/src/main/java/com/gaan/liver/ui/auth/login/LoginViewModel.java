@@ -2,10 +2,12 @@ package com.gaan.liver.ui.auth.login;
 
 
 import com.gaan.liver.data.model.pojo.LoggedStatus;
-import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
-import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
-import com.gaan.liver.data.model.api.request.ServerLoginRequest;
+import com.gaan.liver.data.model.api.request.PostFacebookLoginRequest;
+import com.gaan.liver.data.model.api.request.PostGoogleLoginRequest;
+import com.gaan.liver.data.model.api.request.PostServerLoginRequest;
 import com.gaan.liver.data.repository.AuthRepository;
+import com.gaan.liver.data.repository.IAuthRepository;
+import com.gaan.liver.data.repository.IUserRepository;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.rx.SchedulerProvider;
@@ -17,19 +19,18 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     public String username;
     public String password;
 
-    //DEPENDENCY INJECTION MISSING, I WILL UPDATE..
-    @Inject
-    AuthRepository mAuthRepository;
+    IAuthRepository mAuthRepository;
 
     @Inject
-    public LoginViewModel(IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
+    public LoginViewModel(IAuthRepository iAuthRepository, IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
+        mAuthRepository = iAuthRepository;
     }
 
     public void login(){
         setIsLoading(true);
         getCompositeDisposable().add(mAuthRepository
-                .postLoginApiCall(new ServerLoginRequest(username,password))
+                .postLoginApiCall(new PostServerLoginRequest(username,password))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(
                                 response.getAccessToken(),
@@ -54,7 +55,7 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     public void onFbLoginClick(String fbId,String accessToken){
         setIsLoading(true);
         getCompositeDisposable().add(mAuthRepository
-                .postFacebookApiCall(new FacebookLoginRequest(fbId,accessToken))
+                .postFacebookApiCall(new PostFacebookLoginRequest(fbId,accessToken))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(
                                 response.getAccessToken(),
@@ -79,7 +80,7 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
     public void onGoogleLoginClick(String googleUserId,String idToken){
         setIsLoading(true);
         getCompositeDisposable().add(mAuthRepository
-                .postGoogleApiCall(new GoogleLoginRequest(googleUserId,idToken))
+                .postGoogleApiCall(new PostGoogleLoginRequest(googleUserId,idToken))
                 .doOnSuccess(response-> getUserDataManager()
                         .updateUserInfo(
                                 response.getAccessToken(),

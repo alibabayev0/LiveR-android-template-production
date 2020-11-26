@@ -4,8 +4,11 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import com.gaan.liver.data.model.api.request.GetForgotPasswordTokenRequest;
+import com.gaan.liver.data.repository.IEventRepository;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
+import com.gaan.liver.util.DateUtil;
 import com.gaan.liver.util.logger.Logger;
 import com.gaan.liver.util.rx.SchedulerProvider;
 import com.gaan.liver.util.sensors.GlobalSensor;
@@ -28,13 +31,16 @@ public class ArViewModel extends BaseViewModel<ArNavigator>  {
     //Third party library
     SmartLocation.LocationControl locationControl;
 
+    IEventRepository mEventRepository;
+
     // Mvvm rules ViewModel does'nt know about context inside viewmodel for lifecycle and principles
     // but viewmodel does not keeping the context using once for sensormanager.
     @Inject
-    public ArViewModel(SmartLocation.LocationControl locationControl,GlobalSensor globalSensor,Context context, IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
+    public ArViewModel(IEventRepository iEventRepository,SmartLocation.LocationControl locationControl,GlobalSensor globalSensor,Context context, IUserDataManager iUserDataManager, SchedulerProvider schedulerProvider) {
         super(iUserDataManager, schedulerProvider);
         this.globalSensor = globalSensor;
         this.locationControl = locationControl;
+        mEventRepository = iEventRepository;
         initSensors(context);
     }
 
@@ -67,6 +73,7 @@ public class ArViewModel extends BaseViewModel<ArNavigator>  {
     //Initialize location for take close objects from api.
     private void initLocation() {
         locationControl.start(location -> {
+
             Logger.d(location.getLatitude() + " " + location.getLongitude());
         });
     }

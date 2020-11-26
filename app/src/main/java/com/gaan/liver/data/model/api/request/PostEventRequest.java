@@ -25,4 +25,14 @@ public class PostEventRequest {
     @SerializedName("categoryId")
     @Expose
     private Integer categoryId;
+
+    public PostEventRequest(String title, String description, String hashtag, String picture, double lat, double lon, Integer categoryId) {
+        this.title = title;
+        this.description = description;
+        this.hashtag = hashtag;
+        this.picture = picture;
+        this.lat = lat;
+        this.lon = lon;
+        this.categoryId = categoryId;
+    }
 }

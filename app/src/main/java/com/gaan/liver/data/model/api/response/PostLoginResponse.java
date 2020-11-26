@@ -3,7 +3,7 @@ package com.gaan.liver.data.model.api.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public final class LoginResponse extends BaseResponse{
+public final class PostLoginResponse extends BaseResponse{
 
     @Expose
     @SerializedName("access_token")
@@ -50,7 +50,7 @@ public final class LoginResponse extends BaseResponse{
             return false;
         }
 
-        LoginResponse that = (LoginResponse) object;
+        PostLoginResponse that = (PostLoginResponse) object;
 
         if (statusCode != null ? !statusCode.equals(that.statusCode) : that.statusCode != null) {
             return false;

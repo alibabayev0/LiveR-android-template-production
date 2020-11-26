@@ -3,7 +3,7 @@ package com.gaan.liver.data.model.api.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GoogleLoginRequest {
+public class PostGoogleLoginRequest {
 
     @Expose
     @SerializedName("google_user_id")
@@ -13,7 +13,7 @@ public class GoogleLoginRequest {
     @SerializedName("google_id_token")
     private String idToken;
 
-    public GoogleLoginRequest(String googleUserId, String idToken) {
+    public PostGoogleLoginRequest(String googleUserId, String idToken) {
         this.googleUserId = googleUserId;
         this.idToken = idToken;
     }
@@ -27,7 +27,7 @@ public class GoogleLoginRequest {
             return false;
         }
 
-        GoogleLoginRequest that = (GoogleLoginRequest) object;
+        PostGoogleLoginRequest that = (PostGoogleLoginRequest) object;
 
         if (googleUserId != null ? !googleUserId.equals(that.googleUserId)
                 : that.googleUserId != null) {

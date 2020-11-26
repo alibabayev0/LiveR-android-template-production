@@ -1,6 +1,6 @@
 package com.gaan.liver.ui.auth.register;
 
-import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
+import com.gaan.liver.data.model.api.request.PostServerRegisterRequest;
 import com.gaan.liver.data.repository.AuthRepository;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
@@ -31,7 +31,7 @@ public class RegisterViewModel extends BaseViewModel<IRegisterNavigator> {
         }
         setIsLoading(true);
         getCompositeDisposable().add(authRepository.postRegisterCall
-                        (new ServerRegisterRequest(username,email,password))
+                        (new PostServerRegisterRequest(username,email,password))
                         .doOnSuccess(response-> Logger.d("TAG",response.toString()))
                         .subscribeOn(getSchedulerProvider().io())
                         .observeOn(getSchedulerProvider().ui())

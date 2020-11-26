@@ -2,7 +2,7 @@ package com.gaan.liver.data.repository;
 
 import com.gaan.liver.data.model.api.request.PostEventRequest;
 import com.gaan.liver.data.model.api.response.DeleteEventResponse;
-import com.gaan.liver.data.model.api.response.EventResponse;
+import com.gaan.liver.data.model.api.response.GetEventResponse;
 import com.gaan.liver.data.model.api.response.PostEventResponse;
 import com.gaan.liver.data.model.api.response.PutEventResponse;
 import com.gaan.liver.data.remote.EventService;
@@ -13,12 +13,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 @Singleton
-public class EventRepository {
+public class EventRepository implements IEventRepository{
 
+    //NetworkService (Retrofit)
     private EventService mEventService;
 
     @Inject
@@ -26,23 +25,28 @@ public class EventRepository {
         mEventService = eventService;
     }
 
-    Single<EventResponse> getEventByIdCall(String eventId){
-        return mEventService.getEventByIdCall(eventId);
+    @Override
+    public Single<GetEventResponse> getEventByIdCall(String token,String eventId){
+        return mEventService.getEventByIdCall(token,eventId);
     }
 
-    Single<List<EventResponse>> getEventByLocCall(String lat, String lon, String ele, String timezone){
-        return mEventService.getEventByLocCall(lat,lon,ele,timezone);
+    @Override
+    public Single<List<GetEventResponse>> getEventsByLocCall(String token,String lat, String lon, String ele, String timezone){
+        return mEventService.getEventsByLocCall(token,lat,lon,ele,timezone);
     }
 
-    Single<PostEventResponse> postEvent(PostEventRequest eventRequest){
-        return mEventService.postEvent(eventRequest);
+    @Override
+    public Single<PostEventResponse> postEvent(String token,PostEventRequest eventRequest){
+        return mEventService.postEvent(token,eventRequest);
     }
 
-    Single<DeleteEventResponse> deleteEventByIdCall(String eventId){
-        return mEventService.deleteEventByIdCall(eventId);
+    @Override
+    public Single<DeleteEventResponse> deleteEventCall(String token,String eventId){
+        return mEventService.deleteEventByIdCall(token,eventId);
     }
 
-    Single<PutEventResponse> putEventByIdCall(String eventId){
-        return mEventService.putEventByIdCall(eventId);
+    @Override
+    public Single<PutEventResponse> putEventCall(String token,String eventId){
+        return mEventService.putEventByIdCall(token,eventId);
     }
 }

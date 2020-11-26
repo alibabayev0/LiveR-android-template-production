@@ -1,4 +1,4 @@
-package com.gaan.liver.di.builder;
+package com.gaan.liver.di.module;
 
 import com.gaan.liver.ui.ar.ArActivity;
 import com.gaan.liver.ui.auth.forgotpassword.ForgotPasswordActivity;

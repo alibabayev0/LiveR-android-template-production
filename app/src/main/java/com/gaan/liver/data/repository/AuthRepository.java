@@ -1,15 +1,15 @@
 package com.gaan.liver.data.repository;
 
-import com.gaan.liver.data.model.api.request.FacebookLoginRequest;
-import com.gaan.liver.data.model.api.request.ForgotPasswordRequest;
-import com.gaan.liver.data.model.api.request.ForgotPasswordTokenRequest;
-import com.gaan.liver.data.model.api.request.GoogleLoginRequest;
-import com.gaan.liver.data.model.api.request.ServerLoginRequest;
-import com.gaan.liver.data.model.api.request.ServerRegisterRequest;
-import com.gaan.liver.data.model.api.response.ForgotPasswordResponse;
-import com.gaan.liver.data.model.api.response.ForgotPasswordTokenResponse;
-import com.gaan.liver.data.model.api.response.LoginResponse;
-import com.gaan.liver.data.model.api.response.RegisterResponse;
+import com.gaan.liver.data.model.api.request.PostFacebookLoginRequest;
+import com.gaan.liver.data.model.api.request.GetForgotPasswordRequest;
+import com.gaan.liver.data.model.api.request.GetForgotPasswordTokenRequest;
+import com.gaan.liver.data.model.api.request.PostGoogleLoginRequest;
+import com.gaan.liver.data.model.api.request.PostServerLoginRequest;
+import com.gaan.liver.data.model.api.request.PostServerRegisterRequest;
+import com.gaan.liver.data.model.api.response.GetForgotPasswordResponse;
+import com.gaan.liver.data.model.api.response.GetForgotPasswordTokenResponse;
+import com.gaan.liver.data.model.api.response.PostLoginResponse;
+import com.gaan.liver.data.model.api.response.PostRegisterResponse;
 import com.gaan.liver.data.remote.AuthService;
 
 import javax.inject.Inject;
@@ -18,8 +18,9 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 
 @Singleton
-public class AuthRepository {
+public class AuthRepository implements IAuthRepository{
 
+    //NetworkService (Retrofit)
     private AuthService authApi;
 
     @Inject
@@ -27,28 +28,34 @@ public class AuthRepository {
         this.authApi = authApi;
     }
 
-    public Single<LoginResponse> postFacebookApiCall(FacebookLoginRequest facebookLoginRequest){
-        return authApi.postFacebookApiCall(facebookLoginRequest);
+    @Override
+    public Single<PostLoginResponse> postFacebookApiCall(PostFacebookLoginRequest postFacebookLoginRequest){
+        return authApi.postFacebookApiCall(postFacebookLoginRequest);
     }
 
-    public Single<LoginResponse> postGoogleApiCall(GoogleLoginRequest googleLoginRequest){
-        return authApi.postGoogleApiCall(googleLoginRequest);
+    @Override
+    public Single<PostLoginResponse> postGoogleApiCall(PostGoogleLoginRequest postGoogleLoginRequest){
+        return authApi.postGoogleApiCall(postGoogleLoginRequest);
     }
 
-    public Single<LoginResponse> postLoginApiCall(ServerLoginRequest serverLoginRequest){
-        return authApi.postLoginApiCall(serverLoginRequest);
+    @Override
+    public Single<PostLoginResponse> postLoginApiCall(PostServerLoginRequest postServerLoginRequest){
+        return authApi.postLoginApiCall(postServerLoginRequest);
     }
 
-    public Single<RegisterResponse> postRegisterCall(ServerRegisterRequest serverRegisterRequest){
-        return authApi.postRegisterCall(serverRegisterRequest);
+    @Override
+    public Single<PostRegisterResponse> postRegisterCall(PostServerRegisterRequest postServerRegisterRequest){
+        return authApi.postRegisterCall(postServerRegisterRequest);
     }
 
-    public Single<ForgotPasswordResponse> getForgotPassword(ForgotPasswordRequest forgotPasswordRequest){
-        return authApi.getForgotPassword(forgotPasswordRequest);
+    @Override
+    public Single<GetForgotPasswordResponse> getForgotPassword(GetForgotPasswordRequest getForgotPasswordRequest){
+        return authApi.getForgotPassword(getForgotPasswordRequest);
     }
 
-    public Single<ForgotPasswordTokenResponse> getForgotPasswordTokenValidCall(ForgotPasswordTokenRequest forgotPasswordTokenRequest){
-        return authApi.getForgotPasswordTokenValidCall(forgotPasswordTokenRequest);
+    @Override
+    public Single<GetForgotPasswordTokenResponse> getForgotPasswordTokenValidCall(GetForgotPasswordTokenRequest getForgotPasswordTokenRequest){
+        return authApi.getForgotPasswordTokenValidCall(getForgotPasswordTokenRequest);
     }
 
 }

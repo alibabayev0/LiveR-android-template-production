@@ -3,7 +3,7 @@ package com.gaan.liver.data.model.api.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FacebookLoginRequest {
+public class PostFacebookLoginRequest {
 
     @Expose
     @SerializedName("fb_access_token")
@@ -13,7 +13,7 @@ public class FacebookLoginRequest {
     @SerializedName("fb_user_id")
     private String fbUserId;
 
-    public FacebookLoginRequest(String fbUserId, String fbAccessToken) {
+    public PostFacebookLoginRequest(String fbUserId, String fbAccessToken) {
         this.fbUserId = fbUserId;
         this.fbAccessToken = fbAccessToken;
     }
@@ -27,7 +27,7 @@ public class FacebookLoginRequest {
             return false;
         }
 
-        FacebookLoginRequest that = (FacebookLoginRequest) object;
+        PostFacebookLoginRequest that = (PostFacebookLoginRequest) object;
 
         if (fbUserId != null ? !fbUserId.equals(that.fbUserId) : that.fbUserId != null) {
             return false;

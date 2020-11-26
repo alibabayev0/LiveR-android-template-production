@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.gaan.liver.BaseApplication;
 import com.gaan.liver.data.manager.IUserDataManager;
-import com.gaan.liver.di.builder.ActivityBuildersModule;
+import com.gaan.liver.di.module.ActivityBuildersModule;
 import com.gaan.liver.di.module.AppModule;
 import com.gaan.liver.di.module.NetworkModule;
 import com.gaan.liver.di.module.RepositoryModule;

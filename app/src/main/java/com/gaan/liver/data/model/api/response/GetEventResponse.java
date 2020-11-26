@@ -3,7 +3,7 @@ package com.gaan.liver.data.model.api.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EventResponse {
+public class GetEventResponse {
     @SerializedName("_id")
     @Expose
     private String _id;
@@ -16,10 +16,10 @@ public class EventResponse {
     @SerializedName("hashTag")
     @Expose
     private String hashtag;
-    @SerializedName("picture")
+    @SerializedName("picturePath")
     @Expose
     private String picture;
-    @SerializedName("cover")
+    @SerializedName("coverPath")
     @Expose
     private String cover;
     @SerializedName("lat")
