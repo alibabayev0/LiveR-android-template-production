@@ -28,7 +28,7 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector
     abstract ForgotPasswordActivity contributeForgotPasswordActivity();
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = {DiscoverAdapterModule.class})
     abstract DiscoverActivity contributeDiscoverActivity();
 
     @ContributesAndroidInjector

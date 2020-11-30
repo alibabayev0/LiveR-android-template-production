@@ -15,6 +15,11 @@
         tools:context=".ui.ar.ArActivity">
 
         <FrameLayout
+            android:id="@+id/itemFrameLayouts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
             android:id="@+id/camera"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

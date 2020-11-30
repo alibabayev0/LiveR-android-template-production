@@ -1,5 +1,7 @@
 package com.gaan.liver.util.sensors;
 
+import android.location.Location;
+
 import com.gaan.liver.data.constant.SensorConstants;
 import com.gaan.liver.util.MathUtil;
 
@@ -8,26 +10,22 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SensorUtil {
+//
+//    private static ArrayList<Float> horizontalRange(float bearing) {
+//        float maxBearX = bearing + SensorConstants.X_MAX_RANGE;
+//        float minBearX = bearing + SensorConstants.X_MIN_RANGE;
+//        return new ArrayList<>(Arrays.asList(minBearX,maxBearX));
+//    }
+//
+//    private static ArrayList<Float> verticalRange(float inclination) {
+//        float maxBearY = inclination + SensorConstants.Y_MAX_RANGE;
+//        float minBearY = inclination + SensorConstants.Y_MIN_RANGE;
+//        return new ArrayList<>(Arrays.asList(minBearY,maxBearY));
+//    }
 
-    private static ArrayList<Float> horizontalRange(float bearing) {
-        float maxBearX = bearing + SensorConstants.X_MAX_RANGE;
-        float minBearX = bearing + SensorConstants.X_MIN_RANGE;
-        return new ArrayList<>(Arrays.asList(minBearX,maxBearX));
-    }
 
-    private static ArrayList<Float> verticalRange(float inclination) {
-        float maxBearY = inclination + SensorConstants.Y_MAX_RANGE;
-        float minBearY = inclination + SensorConstants.Y_MIN_RANGE;
-        return new ArrayList<>(Arrays.asList(minBearY,maxBearY));
-    }
 
-    public static boolean findPoint(float x1, float y1, float x2,float y2, float x, float y)
-    {
-        return x >= x1 && x <= x2 &&
-                y1 >= y && y1 <= y + y2;
-    }
-
-    public static float horizontalDegreeToItem(float startLat,float startLng,float destLat, float destLng){
+    public static double horizontalDegreeToItem(double startLat, double startLng, double destLat, double destLng){
         startLat = MathUtil.toRadians(startLat);
         startLng = MathUtil.toRadians(startLng);
         destLat = MathUtil.toRadians(destLat);
@@ -37,17 +35,27 @@ public class SensorUtil {
         double x =  (Math.cos(startLat) * Math.sin(destLat) -
                         Math.sin(startLat) * Math.cos(destLat) * Math.cos(destLng - startLng));
 
-        double bearing = Math.atan2(x,y);
-        bearing = MathUtil.toDegree((float) bearing);
-        return (float) ((bearing + 360) % 360);
+        double degree = Math.atan2(x,y);
+        degree = MathUtil.toDegree((double) degree);
+        return (double) ((degree + 360) % 360);
     }
 
 
-    public static float verticalDegreeToItem(float startEle,float destEle, float distance){
-        float height = destEle - startEle;
-        float symbol = height != 0 ? (height / -height) : 0;
-        float triangle = height != 0 ? height / distance : 0;
-        return (float) (90 + (Math.tan(triangle) * symbol));
+    public static double verticalDegreeToItem(double startLat,double startLon,double startEle, double destLat,double destLon,double destEle){
+        Location start = new Location("start");
+        start.setLatitude(startLat);
+        start.setLongitude(startLon);
+
+        Location dest = new Location("dest");
+        dest.setLatitude(destLat);
+        dest.setLongitude(destLon);
+
+        double distance = start.distanceTo(dest);
+
+        double height = destEle - startEle;
+        double symbol = height != 0 ? (height / -height) : 0;
+        double triangle = height != 0 ? height / distance : 0;
+        return (double) (90 + (Math.tan(triangle) * symbol));
     }
 
     public static float[] average(List<float[]> values)
@@ -76,4 +84,5 @@ public class SensorUtil {
     public static float findFacing(float[] averageRotHist){
         return (float) Math.atan2(-averageRotHist[2], -averageRotHist[5]);
     }
+
 }

@@ -31,9 +31,9 @@ public interface EventService {
 
     @GET(EVENT_SERVICE_GET_EVENT_BY_LOC_URL)
     Single<List<GetEventResponse>> getEventsByLocCall(@Header("Authorization") String token,
-                                                      @Query("lat") String lat,
-                                                      @Query("lon") String lon,
-                                                      @Query("ele") String ele,
+                                                      @Query("lat") double lat,
+                                                      @Query("lon") double lon,
+                                                      @Query("ele") double ele,
                                                       @Query("timezone") String timezone);
 
     @POST(EVENT_SERVICE_POST_EVENT_URL)

@@ -2,7 +2,11 @@ package com.gaan.liver.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
 import com.gaan.liver.data.constant.SensorConstants;
 import com.gaan.liver.data.local.AppPreferencesHelper;
 import com.gaan.liver.data.local.IAppPreferencesHelper;
@@ -24,34 +28,11 @@ import io.nlopez.smartlocation.location.config.LocationParams;
 @Module
 public class AppModule {
 
-    @Provides
-    @Singleton
-    CalligraphyConfig provideCalligraphyDefaultConfig() {
-        return new CalligraphyConfig.Builder()
-                .build();
-    }
 
     @Provides
     @Singleton
     Context provideContext(Application application) {
         return application;
-    }
-
-    @Provides
-    @Singleton
-    IAppPreferencesHelper providePreferencesHelper(AppPreferencesHelper appPreferencesHelper) {
-        return appPreferencesHelper;
-    }
-
-    @Provides
-    SchedulerProvider provideSchedulerProvider() {
-        return new AppSchedulerProvider();
-    }
-
-    @Provides
-    @Singleton
-    IUserDataManager provideUserDataManager(UserDataManager userDataManager) {
-        return userDataManager;
     }
 
 
@@ -72,6 +53,13 @@ public class AppModule {
     @Provides
     GlobalSensor provideGlobalSensor(){
         return new GlobalSensor();
+    }
+
+    @BindingAdapter("imageUrl")
+    public void setImageUrl(ImageView imageView, String url){
+        Glide.with(imageView)
+                .load(url)
+                .into(imageView);
     }
 
 }

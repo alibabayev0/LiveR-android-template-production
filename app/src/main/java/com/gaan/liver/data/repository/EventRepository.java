@@ -31,7 +31,7 @@ public class EventRepository implements IEventRepository{
     }
 
     @Override
-    public Single<List<GetEventResponse>> getEventsByLocCall(String token,String lat, String lon, String ele, String timezone){
+    public Single<List<GetEventResponse>> getEventsByLocCall(String token,double lat, double lon, double ele, String timezone){
         return mEventService.getEventsByLocCall(token,lat,lon,ele,timezone);
     }
 

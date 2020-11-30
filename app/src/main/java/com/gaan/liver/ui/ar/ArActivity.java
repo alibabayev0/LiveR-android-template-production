@@ -6,32 +6,46 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.library.baseAdapters.BR;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.gaan.liver.R;
-import com.gaan.liver.ViewModelFactory;
+import com.gaan.liver.data.model.api.response.GetEventResponse;
+import com.gaan.liver.data.model.pojo.SensorXY;
 import com.gaan.liver.databinding.ActivityArBinding;
 import com.gaan.liver.ui.base.BaseActivity;
 import com.gaan.liver.ui.discover.DiscoverActivity;
 import com.gaan.liver.ui.messenger.MessengerActivity;
+import com.gaan.liver.util.MathUtil;
 import com.gaan.liver.util.ui.ShowCamera;
 
-import javax.inject.Inject;
+import java.util.List;
+
+import static android.view.View.VISIBLE;
+import static com.gaan.liver.data.constant.SensorConstants.X_TOTAL_RANGE;
+import static com.gaan.liver.data.constant.SensorConstants.Y_TOTAL_RANGE;
 
 public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator {
 
     ActivityArBinding activityArBinding;
 
-    Camera camera;
-    ShowCamera showCamera;
+    Camera mCamera;
+    ShowCamera mShowCamera;
 
-    FrameLayout frameLayout;
+    FrameLayout mFrameLayout;
 
-    int deviceSizeHeight,deviceSizeWidth;   //3020 1440
+    int mDeviceSizeHeight, mDeviceSizeWidth;   //3020 1440
+    List<GetEventResponse> mListGetEventResponse;
+
+    private final int ITEM_NORMAL_IMAGE_HEIGHT = 230;
+    private final int ITEM_NORMAL_IMAGE_WIDTH = 230;
+    private final int ITEM_ZOOMED_IMAGE_HEIGHT = 260;
+    private final int ITEM_ZOOMED_IMAGE_WIDTH = 260;
 
     @Override
     public int getLayoutId() {
@@ -62,16 +76,16 @@ public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator
     }
 
     private void initCamera() {
-        frameLayout = activityArBinding.camera;
-        camera = Camera.open();
-        showCamera = new ShowCamera(this,camera);
-        frameLayout.addView(showCamera);
+        mFrameLayout = activityArBinding.camera;
+        mCamera = Camera.open();
+        mShowCamera = new ShowCamera(this, mCamera);
+        mFrameLayout.addView(mShowCamera);
     }
 
     private void finalizeCamera(){
-        camera.stopPreview();
-        camera.release();
-        frameLayout.removeAllViews();
+        mCamera.stopPreview();
+        mCamera.release();
+        mFrameLayout.removeAllViews();
     }
 
     @Override
@@ -85,8 +99,8 @@ public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        deviceSizeWidth = size.x;
-        deviceSizeHeight = size.y;
+        mDeviceSizeWidth = size.x;
+        mDeviceSizeHeight = size.y;
     }
 
     @Override
@@ -113,5 +127,57 @@ public class ArActivity extends BaseActivity<ArViewModel> implements ArNavigator
     public void openMessenger() {
         Intent intent = MessengerActivity.newIntent(this);
         startActivity(intent);
+    }
+
+    @Override
+    public void showItems(List<GetEventResponse> getEventResponseList) {
+        mListGetEventResponse = getEventResponseList;
+        activityArBinding.itemFrameLayouts.removeAllViews();
+        for (GetEventResponse item :
+                getEventResponseList) {
+            ImageView imageView = new ImageView(this);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(ITEM_NORMAL_IMAGE_WIDTH, ITEM_NORMAL_IMAGE_HEIGHT));
+            imageView.setTag(item.get_id());
+            imageView.setVisibility(View.INVISIBLE);
+            activityArBinding.itemFrameLayouts.addView(imageView);
+        }
+    }
+
+    @Override
+    public void setRangeOfView(SensorXY mSensorXY) {
+        for (GetEventResponse item:
+             mListGetEventResponse) {
+            ImageView imageView  = activityArBinding.itemFrameLayouts.findViewWithTag(item.get_id());
+            imageView.setVisibility(View.GONE);
+            boolean matchPointForZooming = MathUtil.findOnePointOverlapRectangle(item.getDegreeX(), item.getDegreeY(), ITEM_NORMAL_IMAGE_WIDTH, ITEM_NORMAL_IMAGE_HEIGHT, mDeviceSizeWidth / 2.0d, mDeviceSizeHeight / 2.0d);
+            boolean matchPointForInsideView = MathUtil.findPointInsideView(mSensorXY,item.getDegreeX(), item.getDegreeY());
+            if (matchPointForInsideView && matchPointForZooming && imageView.getHeight() == ITEM_ZOOMED_IMAGE_HEIGHT) {
+                imageView.getLayoutParams().width = ITEM_ZOOMED_IMAGE_WIDTH;
+                imageView.getLayoutParams().height = ITEM_ZOOMED_IMAGE_HEIGHT;
+                imageView.setTranslationX(getItemXOnView(mSensorXY) - ((ITEM_ZOOMED_IMAGE_WIDTH - ITEM_NORMAL_IMAGE_WIDTH) / 2f));
+                imageView.setTranslationY(getItemYOnView(mSensorXY) - ((ITEM_ZOOMED_IMAGE_HEIGHT - ITEM_NORMAL_IMAGE_HEIGHT) / 2f));
+            }
+            else if(matchPointForInsideView){
+                imageView.getLayoutParams().width = ITEM_NORMAL_IMAGE_WIDTH;
+                imageView.getLayoutParams().height = ITEM_NORMAL_IMAGE_HEIGHT;
+                imageView.setTranslationX(getItemXOnView(mSensorXY));
+                imageView.setTranslationY(getItemYOnView(mSensorXY));
+                imageView.requestLayout();
+            }
+            imageView.setVisibility(VISIBLE);
+        }
+    }
+
+    public float getItemXOnView(SensorXY sensorXY){
+        return ((mDeviceSizeWidth / X_TOTAL_RANGE) * (sensorXY.getHorizontalDegree() - sensorXY.getMinHorizontalDegree()));
+    }
+
+    public float getItemYOnView(SensorXY sensorXY){
+        return ((mDeviceSizeHeight / Y_TOTAL_RANGE) * (Y_TOTAL_RANGE - (sensorXY.getVerticalDegree() - sensorXY.getMinVerticallDegree())));
+    }
+
+    @Override
+    public void handlerShowItemsError(Throwable throwable) {
+
     }
 }

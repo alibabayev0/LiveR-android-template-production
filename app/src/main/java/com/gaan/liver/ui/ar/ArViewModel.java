@@ -4,18 +4,18 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
-import com.gaan.liver.data.model.api.request.GetForgotPasswordTokenRequest;
 import com.gaan.liver.data.repository.IEventRepository;
 import com.gaan.liver.ui.base.BaseViewModel;
 import com.gaan.liver.data.manager.IUserDataManager;
 import com.gaan.liver.util.DateUtil;
-import com.gaan.liver.util.logger.Logger;
 import com.gaan.liver.util.rx.SchedulerProvider;
 import com.gaan.liver.util.sensors.GlobalSensor;
+import com.gaan.liver.util.sensors.SensorUtil;
 
 import javax.inject.Inject;
 
 import io.nlopez.smartlocation.SmartLocation;
+import io.reactivex.Flowable;
 import io.reactivex.disposables.Disposable;
 
 public class ArViewModel extends BaseViewModel<ArNavigator>  {
@@ -73,8 +73,37 @@ public class ArViewModel extends BaseViewModel<ArNavigator>  {
     //Initialize location for take close objects from api.
     private void initLocation() {
         locationControl.start(location -> {
-
-            Logger.d(location.getLatitude() + " " + location.getLongitude());
+            getCompositeDisposable().add(mEventRepository
+                    .getEventsByLocCall(getUserDataManager().getUserAccessToken(),
+                                        location.getLatitude(),
+                                        location.getLongitude(),
+                                        location.getAltitude(),
+                                        DateUtil.getTimeZone())
+                    .flatMapPublisher(Flowable::fromIterable)
+                    .map(res->{
+                        res.setDegreeX(SensorUtil.horizontalDegreeToItem(res.getLat(),
+                                                                        res.getLon(),
+                                                                        location.getLatitude(),
+                                                                        location.getLongitude()));
+                        res.setDegreeY(SensorUtil.verticalDegreeToItem(res.getLat(),
+                                                                    res.getLon(),
+                                                                    location.getLatitude(),
+                                                                    location.getLongitude(),
+                                                                    res.getEle(),
+                                                                    location.getAltitude())); // Altitude is wrong i have to write custom!!
+                        return res;
+                    })
+                    .toList()
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribe(response-> {
+//                        setIsLoading(false);
+                        getNavigator().showItems(response);
+                    },throwable -> {
+//                        setIsLoading(false);
+                        getNavigator().handlerShowItemsError(throwable);
+                    })
+            );
         });
     }
 
@@ -85,9 +114,9 @@ public class ArViewModel extends BaseViewModel<ArNavigator>  {
         mSensorManager.registerListener(globalSensor,mMagnetic,SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(globalSensor,mAccelerometr,SensorManager.SENSOR_DELAY_NORMAL);
 
-        Disposable disposable = globalSensor.getSensorXYPublishSubject().subscribe(s->
-            Logger.d(s.getHorizontalDegree() + " " + s.getVerticalDegree())
-        );
+        Disposable disposable = globalSensor.getSensorXYPublishSubject().subscribe(sensorXY->{
+            getNavigator().setRangeOfView(sensorXY);
+        });
 
         getCompositeDisposable().add(disposable);
     }

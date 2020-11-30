@@ -13,7 +13,7 @@ import io.reactivex.Single;
 public interface IEventRepository {
     Single<GetEventResponse> getEventByIdCall(String token,String eventId);
 
-    Single<List<GetEventResponse>> getEventsByLocCall(String token,String lat, String lon, String ele, String timezone);
+    Single<List<GetEventResponse>> getEventsByLocCall(String token,double lat, double lon, double ele, String timezone);
 
     Single<PostEventResponse> postEvent(String token,PostEventRequest eventRequest);
 

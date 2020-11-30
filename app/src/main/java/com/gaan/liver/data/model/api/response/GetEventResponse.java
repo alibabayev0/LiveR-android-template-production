@@ -28,9 +28,17 @@ public class GetEventResponse {
     @SerializedName("lon")
     @Expose
     private double lon;
+    @SerializedName("ele")
+    @Expose
+    private double ele;
+
+
     @SerializedName("categoryId")
     @Expose
     private Integer categoryId;
+
+    private double degreeX;
+    private double degreeY;
 
     public String get_id() {
         return _id;
@@ -66,5 +74,25 @@ public class GetEventResponse {
 
     public Integer getCategoryId() {
         return categoryId;
+    }
+
+    public double getEle() {
+        return ele;
+    }
+
+    public double getDegreeX() {
+        return degreeX;
+    }
+
+    public void setDegreeX(double degreeX) {
+        this.degreeX = degreeX;
+    }
+
+    public double getDegreeY() {
+        return degreeY;
+    }
+
+    public void setDegreeY(double degreeY) {
+        this.degreeY = degreeY;
     }
 }
