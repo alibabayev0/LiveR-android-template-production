@@ -23,12 +23,8 @@ public class BaseApplication extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         Hawk.init(this).build();
-
         Logger.init();
-
-
     }
 
     @Override

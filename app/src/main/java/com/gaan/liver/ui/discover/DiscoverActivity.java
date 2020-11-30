@@ -85,11 +85,12 @@ public class DiscoverActivity extends BaseActivity<DiscoverViewModel> implements
 
     @Override
     public void showNearbyPlaces() {
+
     }
 
     @Override
     public void showNearbyEvents(List<GetEventResponse> getEventResponseList) {
-
+        discoverNearbyEventsAdapter.setAdapterList(getEventResponseList);
     }
 
     @Override

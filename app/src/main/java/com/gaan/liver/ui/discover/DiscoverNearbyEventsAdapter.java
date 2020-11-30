@@ -1,6 +1,7 @@
 package com.gaan.liver.ui.discover;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -23,7 +24,7 @@ public class DiscoverNearbyEventsAdapter extends RecyclerView.Adapter<DiscoverNe
 
     private Context mContext;
     private List<GetEventResponse> mGetEventResponseList = Collections.emptyList();
-
+    @Inject
     public DiscoverNearbyEventsAdapter(Context context) {
         mContext = context;
     }

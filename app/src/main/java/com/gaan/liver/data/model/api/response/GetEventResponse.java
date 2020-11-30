@@ -1,5 +1,7 @@
 package com.gaan.liver.data.model.api.response;
 
+import android.location.Location;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -31,14 +33,13 @@ public class GetEventResponse {
     @SerializedName("ele")
     @Expose
     private double ele;
-
-
     @SerializedName("categoryId")
     @Expose
     private Integer categoryId;
 
     private double degreeX;
     private double degreeY;
+    private double mDistance;
 
     public String get_id() {
         return _id;
@@ -94,5 +95,25 @@ public class GetEventResponse {
 
     public void setDegreeY(double degreeY) {
         this.degreeY = degreeY;
+    }
+
+    public double getDistance() {
+        return mDistance;
+    }
+
+    public void setDistance(double distance) {
+        this.mDistance = distance;
+    }
+
+    public double distanceToPoint(double lat, double lon){
+        Location start = new Location("start");
+        start.setLatitude(getLat());
+        start.setLongitude(getLon());
+
+        Location dest = new Location("dest");
+        dest.setLatitude(lat);
+        dest.setLongitude(lon);
+
+        return start.distanceTo(dest);
     }
 }
