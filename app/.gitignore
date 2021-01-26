@@ -1,2 +1,2 @@
 /build
-/src/main/java/com/gaan/liver/ui/ar/ArViewModel.java
+./src/main/java/com/gaan/liver/ui/ar/ArViewModel.java
