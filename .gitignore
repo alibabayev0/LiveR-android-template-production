@@ -16,3 +16,4 @@ local.properties
 app/src/main/java/com/gaan/liver/ui/ar/ArViewModel.java
 app/src/main/java/com/gaan/liver/util/sensors/GlobalSensor.java
 app/src/main/java/com/gaan/liver/util/sensors/SensorUtil.java
+LiveR.zip
