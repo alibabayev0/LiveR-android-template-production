@@ -27,6 +27,17 @@ public class LoginViewModel extends BaseViewModel<ILoginNavigator> {
         mAuthRepository = iAuthRepository;
     }
 
+    public void checkUserExist(){
+        if(getUserDataManager().getUserLoggedStatus() != LoggedStatus.LOGGED_IN_MODE_LOGGED_OUT.getType());
+        {
+            getNavigator().changeViewToUserExist(getUserDataManager().getUserName(),getUserDataManager().getUserProfilePic());
+        }
+    }
+
+    public void forgotPassword(){
+        getNavigator().openForgotPasswordActivity();
+    }
+
     public void login(){
         setIsLoading(true);
         getCompositeDisposable().add(mAuthRepository

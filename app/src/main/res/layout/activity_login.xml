@@ -15,8 +15,61 @@
         android:layout_height="match_parent"
         tools:context=".ui.auth.login.LoginActivity" >
 
+        <Button
+            android:id="@+id/buttonContinueAs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="494dp" />
+
+        <TextView
+            android:id="@+id/textViewNotContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="173dp"
+            tools:layout_editor_absoluteY="565dp" />
+
+        <EditText
+            android:id="@+id/editTextEmailOrPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@{viewModel.username}"
+            android:inputType="textEmailAddress|phone"
+            tools:layout_editor_absoluteX="101dp"
+            tools:layout_editor_absoluteY="603dp" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@{viewModel.password}"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="102dp"
+            tools:layout_editor_absoluteY="666dp" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:onClick="@{() -> viewModel.login()}"
+            tools:layout_editor_absoluteX="162dp"
+            tools:layout_editor_absoluteY="422dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:onClick="@{()->viewModel.forgotPassword()}"
+            tools:layout_editor_absoluteX="183dp"
+            tools:layout_editor_absoluteY="377dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

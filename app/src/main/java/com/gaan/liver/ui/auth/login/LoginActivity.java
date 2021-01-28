@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.gaan.liver.R;
 import com.gaan.liver.ui.ar.ArActivity;
+import com.gaan.liver.ui.auth.forgotpassword.ForgotPasswordActivity;
 import com.gaan.liver.ui.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity<LoginViewModel> implements ILoginNavigator {
@@ -15,7 +16,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements ILogi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel.setNavigator(this);
-        openArActivity();
+        mViewModel.checkUserExist();
+//        openArActivity();
     }
 
     @Override
@@ -38,6 +40,18 @@ public class LoginActivity extends BaseActivity<LoginViewModel> implements ILogi
         Intent intent = ArActivity.newIntent(LoginActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void openForgotPasswordActivity() {
+        Intent intent = ForgotPasswordActivity.newIntent(LoginActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void changeViewToUserExist(String username, String profilePicPath) {
+
     }
 
     @Override
