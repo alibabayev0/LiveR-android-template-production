@@ -1,2 +1,2 @@
-# LiveR-Live-Reality-
+# liver-android
 sample
